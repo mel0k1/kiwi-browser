@@ -1253,6 +1253,11 @@ Preferences.addAll([
     default: true,
   },
   {
+    id: "kiwi.sidebar.position",
+    type: "string",
+    default: "left",
+  },
+  {
     id: "zen.window-sync.sync-only-pinned-tabs",
     type: "bool",
     default: false,

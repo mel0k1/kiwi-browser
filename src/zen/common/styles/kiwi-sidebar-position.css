@@ -1,0 +1,20 @@
+/*
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
+
+:root[kiwi-sidebar-position="bottom"] #browser {
+  display: flex;
+  flex-direction: column;
+
+  & > #navigator-toolbox {
+    order: 2;
+    width: auto !important;
+  }
+
+  & > #zen-appcontent-wrapper {
+    flex: 1 1 auto;
+    min-height: 0;
+  }
+}

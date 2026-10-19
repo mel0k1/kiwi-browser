@@ -17,6 +17,7 @@
     "resource:///modules/zen/ZenSpaceManager.mjs",
     "chrome://browser/content/zen-components/ZenCompactMode.mjs",
     "chrome://browser/content/ZenUIManager.mjs",
+    "chrome://browser/content/zen-components/KiwiSidebarPosition.mjs",
     "resource:///modules/zen/ZenVerticalTabsManager.mjs",
     "chrome://browser/content/zen-components/ZenMods.mjs",
     "chrome://browser/content/zen-components/ZenKeyboardShortcuts.mjs",

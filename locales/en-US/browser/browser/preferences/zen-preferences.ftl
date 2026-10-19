@@ -108,6 +108,18 @@ zen-pinned-tab-manager-reset-close-shortcut-option =
 zen-pinned-tab-manager-close-close-shortcut-option =
     .label = Close tab
 
+kiwi-sidebar-position-header = Sidebar position
+kiwi-sidebar-position-description = Choose where the sidebar with your tabs lives. Top and bottom switch to the classic layout.
+kiwi-sidebar-position-label = Position
+kiwi-sidebar-position-left =
+    .label = Left
+kiwi-sidebar-position-right =
+    .label = Right
+kiwi-sidebar-position-top =
+    .label = Top
+kiwi-sidebar-position-bottom =
+    .label = Bottom
+
 pane-zen-workspaces-header = Workspaces
 zen-settings-workspaces-header = General settings for workspaces
 zen-settings-workspaces-description = With workspaces, you can have multiple browsing sessions at once!

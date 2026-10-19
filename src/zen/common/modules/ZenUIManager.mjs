@@ -63,6 +63,7 @@ class nsZenUIManager {
     });
 
     gZenVerticalTabsManager.init();
+    gKiwiSidebarPosition.init();
     this.#urlbar.init();
 
     this.#markAcrylicSupport();
