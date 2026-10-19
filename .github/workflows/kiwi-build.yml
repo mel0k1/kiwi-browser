@@ -87,3 +87,153 @@ jobs:
           retention-days: 7
           name: kiwi-linux-x86_64
           path: kiwi-linux-x86_64.tar.xz
+
+  build-windows:
+    permissions:
+      contents: read
+    runs-on: ubuntu-latest
+    timeout-minutes: 350
+    env:
+      CARGO_TERM_COLOR: always
+      CARGO_INCREMENTAL: 0
+    name: Build Kiwi Windows (x86_64)
+
+    steps:
+      - name: Free Disk Space (Ubuntu)
+        uses: jlumbroso/free-disk-space@main
+        with:
+          tool-cache: false
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+
+      - name: Setup Git
+        run: |
+          git config --global user.name "kiwi-ci"
+          git config --global user.email "ci@kiwi-browser.local"
+
+      - name: Install system dependencies
+        run: |
+          sudo apt-get -o Acquire::Retries=3 update
+          sudo apt-get install -y dos2unix yasm nasm build-essential libpython3-dev m4 uuid libasound2-dev libcurl4-openssl-dev libdbus-1-dev libdrm-dev libdbus-glib-1-dev libgtk-3-dev libpulse-dev libx11-xcb-dev libxt-dev xvfb lld llvm aria2 zstd
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Resolve display version
+        run: |
+          VERSION=$(python3 -c "import json; print(json.load(open('surfer.json'))['brands']['release']['release']['displayVersion'])")
+          echo "KIWI_VERSION=$VERSION" >> "$GITHUB_ENV"
+
+      - name: Load Surfer CI setup
+        run: npm run surfer -- ci --brand release --display-version "$KIWI_VERSION"
+
+      - name: Download Firefox source
+        run: npm run download
+
+      - name: Win-cross cache
+        id: win-cross
+        uses: actions/cache@v4
+        with:
+          path: ~/win-cross
+          key: kiwi-win-cross-vs2026-v1
+
+      - name: Setup for Windows
+        if: steps.win-cross.outputs.cache-hit != 'true'
+        run: |
+          set -x
+          mkdir -p ~/win-cross
+          sudo apt-get -o Acquire::Retries=3 install python3-launchpadlib
+          sudo add-apt-repository ppa:savoury1/backports
+          sudo apt-get -o Acquire::Retries=3 update
+          sudo apt-get -o Acquire::Retries=3 install -y autoconf autoconf2.13 automake bison build-essential cabextract curl cmake flex gawk gcc-multilib git gnupg jq libbz2-dev libexpat1-dev libffi-dev libncursesw5-dev libsqlite3-dev libssl-dev libtool libucl-dev libxml2-dev msitools ninja-build openssh-client p7zip-full pkg-config procps python3-requests python3-toml scons subversion tar unzip uuid uuid-dev wget zip zlib1g-dev aria2
+          aria2c "https://firefox-ci-tc.services.mozilla.com/api/index/v1/task/gecko.cache.level-3.toolchains.v3.linux64-wine.latest/artifacts/public/build/wine.tar.zst" -o wine.tar.zst
+          tar --zstd -xf wine.tar.zst -C ~/win-cross
+          rm wine.tar.zst
+          cd engine/
+          ./mach python --virtualenv build taskcluster/scripts/misc/get_vs.py build/vs/vs2026.yaml ~/win-cross/vs2026
+
+      - name: Restore win-cross cache hint
+        if: steps.win-cross.outputs.cache-hit == 'true'
+        run: sudo apt-get -o Acquire::Retries=3 install -y python3-launchpadlib
+
+      - name: Import
+        env:
+          SURFER_COMPAT: x86_64
+        run: |
+          test -f "$HOME/.cargo/env" || curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+          . "$HOME/.cargo/env"
+          npm run import -- --verbose
+
+      - name: Bootstrap
+        run: |
+          set -x
+          cd engine/
+          chmod -R +x "$(echo ~)/win-cross/vs2026" || true
+          cd ..
+          export SURFER_PLATFORM="win32"
+          npm run bootstrap
+          cd engine/
+          echo "export LIB=\"$(cd ~/.mozbuild/clang/lib/clang/* && cd lib/windows && pwd)\"" >> ../configs/common/mozconfig
+
+      - name: Setup Rust
+        run: |
+          curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --default-toolchain "$(sed -n 's/^channel *= *"\(.*\)"/\1/p' rust-toolchain.toml)"
+          source "$HOME/.cargo/env"
+          rustup target add x86_64-pc-windows-msvc
+          WINDOWS_RS_VERSION=$(cat build/windows/.windows-rs-version)
+          curl -fsSL "https://static.crates.io/crates/cargo-download/cargo-download-0.1.2.crate" | tar xz -C /tmp
+          (cd /tmp/cargo-download-0.1.2 && cargo generate-lockfile && cargo update tinyvec --precise 1.12.0)
+          RUSTFLAGS="--cap-lints=allow" cargo install --path /tmp/cargo-download-0.1.2 --locked
+          cd engine/
+          cargo download -x windows=$WINDOWS_RS_VERSION
+          echo "" >> ../configs/common/mozconfig
+          echo "export MOZ_WINDOWS_RS_DIR=$(pwd)/windows-$WINDOWS_RS_VERSION" >> ../configs/common/mozconfig
+
+      - name: Build
+        env:
+          SURFER_COMPAT: x86_64
+          SURFER_PLATFORM: win32
+          ZEN_CROSS_COMPILING: 1
+          ZEN_GA_DISABLE_PGO: 1
+        run: |
+          dos2unix configs/windows/mozconfig
+          bash .github/workflows/src/release-build.sh
+
+      - name: Package
+        env:
+          SURFER_COMPAT: x86_64
+          SURFER_PLATFORM: win32
+          ZEN_CROSS_COMPILING: 1
+          ZEN_RELEASE: 1
+          ZEN_GA_DISABLE_PGO: 1
+        run: |
+          npm run package
+          ls dist
+          shopt -s nullglob
+          i=(dist/*.installer.exe)
+          z=(dist/*.zip)
+          test ${#i[@]} -gt 0 || { echo "No installer found"; ls dist; exit 1; }
+          test ${#z[@]} -gt 0 || { echo "No zip found"; ls dist; exit 1; }
+          mv "${i[0]}" kiwi.installer.exe
+          mv "${z[0]}" kiwi-win64.zip
+          ls -la kiwi.installer.exe kiwi-win64.zip
+
+      - name: Upload installer
+        uses: actions/upload-artifact@v4
+        with:
+          retention-days: 7
+          name: kiwi-win64-installer
+          path: kiwi.installer.exe
+
+      - name: Upload zip
+        uses: actions/upload-artifact@v4
+        with:
+          retention-days: 7
+          name: kiwi-win64-zip
+          path: kiwi-win64.zip
