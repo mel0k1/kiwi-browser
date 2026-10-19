@@ -14,7 +14,7 @@
 namespace zen {
 
 /**
- * @brief Common utility functions for Zen.
+ * @brief Common utility functions for Kiwi.
  */
 class ZenCommonUtils final : public nsIZenCommonUtils {
   NS_DECL_ISUPPORTS

@@ -8,7 +8,7 @@ index fa0bb5fca4a669981d5c22fcba137c874dea8241..97fecbb9957dd733107e1bfe2aac90c7
  }
 +
 +/**
-+ * Zen Override
++ * Kiwi Override
 + */
 +:host(.infobar) {
 +  --info-bar-background-color: transparent !important;

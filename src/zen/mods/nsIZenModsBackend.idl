@@ -11,7 +11,7 @@
 %}
 
 /**
- * @brief Interface for Zen mods backend.
+ * @brief Interface for Kiwi mods backend.
  */
 [scriptable, uuid(a0ee4792-b186-4497-936d-53a8989fe836)]
 interface nsIZenModsBackend : nsISupports {

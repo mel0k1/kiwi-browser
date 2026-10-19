@@ -14,7 +14,7 @@ index 63f3c4926cfdb8b12e9e4a38016fc66f50cf3129..5ba3f2c07f521905a086ee6eea87975d
                                       nsISVGPaintContext* aPaintContext,
                                       imgIContainer* aImgContainer);
  
-+  // Carry the host document's Zen boost into the image context so the image
++  // Carry the host document's Kiwi boost into the image context so the image
 +  // renders with the same accent/inversion as the page.
 +  static void MaybeStoreZenBoosts(SVGImageContext& aContext,
 +                                  const nsPresContext& aPresContext);
@@ -26,7 +26,7 @@ index 63f3c4926cfdb8b12e9e4a38016fc66f50cf3129..5ba3f2c07f521905a086ee6eea87975d
      mColorScheme = aScheme;
    }
  
-+  // Zen boosts state carried from the host document so the image renders with
++  // Kiwi boosts state carried from the host document so the image renders with
 +  // the same boost. Part of the cache key below so boosted and unboosted
 +  // renderings don't collide.
 +  void SetZenBoosts(nscolor aAccent, float aComplementaryRotation,

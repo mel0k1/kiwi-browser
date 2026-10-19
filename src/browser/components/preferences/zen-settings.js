@@ -255,7 +255,7 @@ var gZenMarketplaceManager = {
 
       fp.init(
         window.browsingContext,
-        "Export Zen Mods",
+        "Export Kiwi Mods",
         nsIFilePicker.modeSave
       );
       fp.defaultString = "zen-mods-export";

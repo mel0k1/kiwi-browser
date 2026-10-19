@@ -6,7 +6,7 @@ index dd13711ab28e0f43f2a0e4f5e9a9794c3eb4e206..e404bd2f10e7e92bf193b5f692e673ba
     */
    void SetColorSchemeOverride(mozilla::dom::PrefersColorSchemeOverride);
  
-+  // Zen boosts override. SVG images render in their own document, which has no
++  // Kiwi boosts override. SVG images render in their own document, which has no
 +  // BrowsingContext to carry the page's boost, so the host propagates it here.
 +  void SetZenBoostsOverride(nscolor aAccent, float aComplementaryRotation,
 +                            bool aInverted) {

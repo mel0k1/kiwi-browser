@@ -8,7 +8,7 @@ import checkForZenUpdates, {
 } from "chrome://browser/content/ZenUpdates.mjs";
 
 /**
- * Drives the parts of Zen's per-window startup that have to happen in a fixed
+ * Drives the parts of Kiwi's per-window startup that have to happen in a fixed
  * order relative to Firefox's own startup.
  */
 class ZenStartup {
@@ -20,7 +20,7 @@ class ZenStartup {
 
   /**
    * Resolves once the window has been laid out, the session restored and
-   * every startup-ordered Zen feature initialized.
+   * every startup-ordered Kiwi feature initialized.
    */
   get promiseInitialized() {
     return this.#initialized.promise;
@@ -92,7 +92,7 @@ class ZenStartup {
       await delayedStartupPromise;
       await SessionStore.promiseAllWindowsRestored;
       gZenCompactModeManager.init();
-      // Fix for https://github.com/zen-browser/desktop/issues/7605, specially in compact mode
+      // Fix for upstream issue 7605, specially in compact mode
       if (gURLBar.hasAttribute("breakout-extend")) {
         gURLBar.focus();
       }

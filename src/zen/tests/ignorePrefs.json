@@ -3,7 +3,7 @@
 // file, You can obtain one at http://mozilla.org/MPL/2.0/.
 //
 // This file lists preferences that are ignored when running mochitests.
-// Add here any preference that is not relevant for testing Zen Modus.
+// Add here any preference that is not relevant for testing Kiwi Modus.
 // This prevents unnecessary test re-runs when these preferences are changed.
 [
   "zen.mods.updated-value-observer",

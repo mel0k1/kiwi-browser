@@ -7,7 +7,7 @@ index 10c0c702dbad97d5e73d84e2c913a3541380c4dd..2291871e58ae259f3bc3d573eb32e7cb
    /**
     * Compute the final color, taking into account the foreground color from the
 -   * style.
-+   * style. The frame, when supplied, is used to resolve Zen boosts.
++   * style. The frame, when supplied, is used to resolve Kiwi boosts.
     */
 -  nscolor CalcColor(const ComputedStyle&) const;
 +  nscolor CalcColor(const ComputedStyle&, const nsIFrame*) const;
@@ -19,7 +19,7 @@ index 10c0c702dbad97d5e73d84e2c913a3541380c4dd..2291871e58ae259f3bc3d573eb32e7cb
    /**
     * Convert this color to an nscolor. The color will be converted to sRGB first
 -   * if required.
-+   * if required. The frame, when supplied, is used to resolve Zen boosts; pass
++   * if required. The frame, when supplied, is used to resolve Kiwi boosts; pass
 +   * the frame the color is being resolved for so boosts can be derived from its
 +   * document, or null to skip boost resolution.
     */

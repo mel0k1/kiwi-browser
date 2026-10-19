@@ -933,7 +933,7 @@ class nsZenKeyboardShortcutsVersioner {
     if (this.isVersionOutdated()) {
       const version = this.version;
       console.warn(
-        "Zen CKS: Migrating shortcuts from version",
+        "Kiwi CKS: Migrating shortcuts from version",
         version,
         "to",
         nsZenKeyboardShortcutsVersioner.LATEST_KBS_VERSION
@@ -1396,7 +1396,7 @@ window.gZenKeyboardShortcutsManager = {
         return KeyShortcut.parseFromSaved(data);
       } catch (e) {
         console.error(
-          "Zen CKS: Error parsing saved shortcuts. Resetting to defaults...",
+          "Kiwi CKS: Error parsing saved shortcuts. Resetting to defaults...",
           e
         );
         gNotificationBox.appendNotification(
@@ -1426,7 +1426,7 @@ window.gZenKeyboardShortcutsManager = {
         return browser.gZenKeyboardShortcutsManager._zenKeyset;
       }
 
-      throw new Error("Zen keyset not found");
+      throw new Error("Kiwi keyset not found");
     }
     return browser.gZenKeyboardShortcutsManager._zenKeyset;
   },

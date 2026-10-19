@@ -17,7 +17,7 @@ async function runStartPage(startupURI) {
   const win = await BrowserTestUtils.openNewBrowserWindow();
   await win.gZenWorkspaces.promiseInitialized;
 
-  // The tab Zen marks as empty at startup, which Firefox then loads the first
+  // The tab Kiwi marks as empty at startup, which Firefox then loads the first
   // startup URL into.
   const tab = BrowserTestUtils.addTab(win.gBrowser, "https://example.com/", {
     skipAnimation: true,

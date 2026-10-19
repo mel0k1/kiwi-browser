@@ -28,8 +28,8 @@ add_task(async function test_panel_lists_installed_addons() {
   await BrowserTestUtils.browserLoaded(tab.linkedBrowser);
   await BrowserTestUtils.switchTab(gBrowser, tab);
 
-  const extA = await loadTestExtension("ext-a@zen-test", "Zen Test Addon A");
-  const extB = await loadTestExtension("ext-b@zen-test", "Zen Test Addon B");
+  const extA = await loadTestExtension("ext-a@zen-test", "Kiwi Test Addon A");
+  const extB = await loadTestExtension("ext-b@zen-test", "Kiwi Test Addon B");
 
   try {
     await openSiteDataPanel();
@@ -63,7 +63,7 @@ add_task(async function test_panel_lists_installed_addons() {
     );
     Assert.equal(
       itemA.querySelector(".unified-extensions-item-name").textContent,
-      "Zen Test Addon A",
+      "Kiwi Test Addon A",
       "addon A is rendered with its declared name"
     );
 
@@ -85,7 +85,7 @@ add_task(async function test_panel_drops_uninstalled_addon() {
 
   const ext = await loadTestExtension(
     "ext-transient@zen-test",
-    "Zen Transient Addon"
+    "Kiwi Transient Addon"
   );
 
   try {

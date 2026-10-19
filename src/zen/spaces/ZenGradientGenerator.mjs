@@ -69,7 +69,7 @@ const EXPLICIT_LIGHTNESS_TYPE = "explicit-lightness";
 const EXPLICIT_BLACKWHITE_TYPE = "explicit-black-white";
 
 /**
- * A class that manages the theme picker for Zen Workspaces.
+ * A class that manages the theme picker for Kiwi Workspaces.
  * It allows users to create and customize gradients for their workspace themes.
  */
 export class nsZenThemePicker extends nsZenMultiWindowFeature {

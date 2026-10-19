@@ -20,7 +20,7 @@ add_task(async function test_Create_Folder() {
   Assert.equal(
     subfolder.tabs.length,
     2,
-    "Subfolder contains the tab and the empty tab created by Zen Folders"
+    "Subfolder contains the tab and the empty tab created by Kiwi Folders"
   );
   Assert.equal(parent.tabs.length, 4, "Parent folder contains the subfolder");
   await removeFolder(subfolder);

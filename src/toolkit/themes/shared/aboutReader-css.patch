@@ -7,7 +7,7 @@ index cb07e9ffa97c4d4856fc96eeda409faeedecb9e4..3960ec171efa573ad140488e25249df4
    overflow: auto;
  }
 +
-+/* Zen Overrides */
++/* Kiwi Overrides */
 +
 +.toolbar {
 +  border: none !important;

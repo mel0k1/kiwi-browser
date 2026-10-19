@@ -71,7 +71,7 @@ const BOOST_ACCENTS = [
 ];
 
 /**
- * Exercises Zen's own UI while the instrumented browser collects PGO data.
+ * Exercises Kiwi's own UI while the instrumented browser collects PGO data.
  */
 export const ZenPGOTraining = {
   _window: null,

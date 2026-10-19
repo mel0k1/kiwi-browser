@@ -25,7 +25,7 @@ add_task(async function test_fallback_opens_first_homepage() {
     ],
   });
 
-  // The tab Zen marks as empty at startup. selectStartPage() removes it and
+  // The tab Kiwi marks as empty at startup. selectStartPage() removes it and
   // falls back to selectEmptyTab().
   const tab = BrowserTestUtils.addTab(win.gBrowser, "https://example.com/", {
     skipAnimation: true,

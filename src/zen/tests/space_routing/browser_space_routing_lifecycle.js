@@ -16,7 +16,7 @@ async function withRoutingWorkspace(callback) {
   const originalTestingEnabled = gZenUIManager.testingEnabled;
   let targetWorkspace;
 
-  // Exercise real empty-tab selection, which Zen testing mode disables.
+  // Exercise real empty-tab selection, which Kiwi testing mode disables.
   gZenUIManager.testingEnabled = false;
   try {
     targetWorkspace = await gZenWorkspaces.createAndSaveWorkspace(

@@ -8,7 +8,7 @@ interface mozIDOMWindowProxy;
 webidl Node;
 
 /**
- * @brief Interface for Zen's drag and drop functionality.
+ * @brief Interface for Kiwi's drag and drop functionality.
  */
 [scriptable, uuid(f8714110-1fb1-4129-abad-887a64e4085e)]
 interface nsIZenDragAndDrop : nsISupports {

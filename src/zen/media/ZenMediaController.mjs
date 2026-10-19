@@ -464,7 +464,7 @@ class ZenMediaCard {
 }
 
 /**
- * Zen Media Controller, handles the stack of media control cards located at
+ * Kiwi Media Controller, handles the stack of media control cards located at
  * the bottom of the sidebar. Each active media controller (and WebRTC
  * sharing session) gets its own card.
  */

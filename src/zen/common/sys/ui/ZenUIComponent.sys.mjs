@@ -3,7 +3,7 @@
 // file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 /**
- * Base class for per-window UI components in Zen.
+ * Base class for per-window UI components in Kiwi.
  *
  * A component is created once for every browser window. It owns its event
  * listeners, which are removed automatically when the window unloads, and

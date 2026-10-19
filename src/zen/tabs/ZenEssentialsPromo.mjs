@@ -40,7 +40,7 @@ class nsZenEssentialsPromo extends MozXULElement {
 }
 
 /**
- * Create and append the Zen Essentials promo element to the given container.
+ * Create and append the Kiwi Essentials promo element to the given container.
  *
  * @param {number|undefined} container - The container to append the promo to.
  *  If undefined, appends to the current workspace's tab strip.

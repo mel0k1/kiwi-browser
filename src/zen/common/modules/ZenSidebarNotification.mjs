@@ -13,7 +13,7 @@ ChromeUtils.defineLazyGetter(lazy, "siblingElement", () => {
 });
 
 /**
- * Zen Sidebar Notification Component
+ * Kiwi Sidebar Notification Component
  *
  * Displays and takes care of animations for notifications that
  * appear in the sidebar.

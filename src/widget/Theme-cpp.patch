@@ -20,7 +20,7 @@ index 93c947bb8dad0d4abd68871d9e6eb401bba2a24f..e4358a5906527fe5578b37624210928e
        ComputeTextfieldColors(aState, aColors, OutlineCoversBorder::Yes);
  
 +  // The default field background comes from a theme/system color rather than a
-+  // resolved style color, so apply Zen boosts here to match boosted content.
++  // resolved style color, so apply Kiwi boosts here to match boosted content.
 +  backgroundColor = sRGBColor::FromABGR(zen::nsZenBoostsBackend::ResolveStyleColor(
 +      backgroundColor.ToABGR(), aFrame));
 +

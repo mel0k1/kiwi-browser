@@ -121,7 +121,6 @@ zen-site-data-get-addons =
 zen-site-data-site-settings =
     .label = All Site Settings
 
-
 zen-site-data-header-share =
     .tooltiptext = Share This Page
 zen-site-data-header-reader-mode =
@@ -152,15 +151,12 @@ zen-sidebar-notification-updated-heading = Update Complete!
 zen-sidebar-notification-updated-label = What's new in { -brand-short-name }
 zen-sidebar-notification-updated-tooltip =
     .title = View Release Notes
-zen-sidebar-notification-donate-label = Support { -brand-short-name }
-zen-sidebar-notification-donate-tooltip =
-    .title = Donate to the project
 zen-sidebar-notification-restart-safe-mode-label = Something broke?
 zen-sidebar-notification-restart-safe-mode-tooltip =
     .title = Restart in Safe Mode
 
 zen-window-sync-migration-dialog-title = Keep Your Windows in Sync
-zen-window-sync-migration-dialog-message = Zen now syncs windows on the same device, so changes in one window are reflected across the others instantly.
+zen-window-sync-migration-dialog-message = Kiwi now syncs windows on the same device, so changes in one window are reflected across the others instantly.
 zen-window-sync-migration-dialog-learn-more = Learn More
 zen-window-sync-migration-dialog-accept = Got It
 

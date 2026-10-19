@@ -7,7 +7,7 @@ index 39c9726cfdbfc333cb5eba25f295a1ae641da141..96e823b8654623a82f455bfce6010070
          "signmar",
      ]
 +    if CONFIG["OS_ARCH"] == "Linux":
-+        # Zen: ensure RPATH is set so NSS/signmar libs are found at runtime
++        # Kiwi: ensure RPATH is set so NSS/signmar libs are found at runtime
 +        OS_LIBS += [
 +            "-Wl,-rpath=\\$$ORIGIN",
 +        ]

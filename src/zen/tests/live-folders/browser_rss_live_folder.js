@@ -45,7 +45,7 @@ add_task(async function test_rss_parsing() {
       <channel>
         <title>Tech News</title>
         <item>
-          <title>Mozilla Releases Zen</title>
+          <title>Mozilla Releases Kiwi</title>
           <link>https://mozilla.org/zen</link>
           <guid>guid-123</guid>
           <pubDate>${new Date().toUTCString()}</pubDate>
@@ -67,7 +67,7 @@ add_task(async function test_rss_parsing() {
   Assert.equal(items.length, 2, "Should find 2 items");
 
   // Check mapping
-  Assert.equal(items[0].title, "Mozilla Releases Zen");
+  Assert.equal(items[0].title, "Mozilla Releases Kiwi");
   Assert.equal(items[0].url, "https://mozilla.org/zen");
   Assert.equal(items[0].id, "guid-123");
 

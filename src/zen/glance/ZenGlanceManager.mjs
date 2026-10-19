@@ -9,7 +9,7 @@ import { nsZenDOMOperatedFeature } from "chrome://browser/content/zen-components
 const GLANCE_BACKGROUND_SCALE = 0.97;
 
 /**
- * Manages the Zen Glance feature - a preview overlay system for tabs
+ * Manages the Kiwi Glance feature - a preview overlay system for tabs
  * Allows users to preview content without fully opening new tabs
  */
 class nsZenGlanceManager extends nsZenDOMOperatedFeature {
@@ -1672,7 +1672,7 @@ class nsZenGlanceManager extends nsZenDOMOperatedFeature {
       }
 
       // Only glance up links that are http(s) or file
-      // https://github.com/zen-browser/desktop/issues/7173
+      // Upstream issue 7173
       const url2Spec = url2.spec;
       if (!this.#isValidGlanceUrl(url2Spec)) {
         return false;
@@ -1814,7 +1814,7 @@ class nsZenGlanceManager extends nsZenDOMOperatedFeature {
   }
 
   /**
-   * Handle Zen folder pinning if applicable
+   * Handle Kiwi folder pinning if applicable
    */
   #handleZenFolderPinning() {
     const isZenFolder = this.#currentParentTab?.group?.isZenFolder;
@@ -1977,7 +1977,7 @@ class nsZenGlanceManager extends nsZenDOMOperatedFeature {
   }
 
   /**
-   * Handle Zen folder pinning for split view
+   * Handle Kiwi folder pinning for split view
    *
    * @param {Tab} parentTab - The parent tab
    */

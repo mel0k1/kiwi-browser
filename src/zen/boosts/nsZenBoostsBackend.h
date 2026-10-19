@@ -17,7 +17,7 @@ class BrowsingContext;
 
 #define ZEN_BOOSTS_BACKEND_CONTRACTID "@mozilla.org/zen/boosts-backend;1"
 
-using ZenBoostData = nscolor;  // For now, Zen boosts data is just a color.
+using ZenBoostData = nscolor;  // For now, Kiwi boosts data is just a color.
 
 namespace zen {
 
@@ -52,7 +52,7 @@ class nsZenBoostsBackend final : public nsISupports {
   explicit nsZenBoostsBackend() = default;
 
   /**
-   * @brief Resolve a color to take into account Zen boosts. This is the single
+   * @brief Resolve a color to take into account Kiwi boosts. This is the single
    * place style colors are filtered; it is reached for every style color via
    * StyleAbsoluteColor::ToColor. Do not add a second StyleColor::ResolveColor
    * filter on top of this or colors get filtered multiple times (which also
@@ -64,7 +64,7 @@ class nsZenBoostsBackend final : public nsISupports {
    * the boosts overlays themselves), the color is returned unfiltered.
    * @param aColor The color to resolve.
    * @param aFrame The frame the color is being resolved for, or null.
-   * @return The resolved color with Zen boost filters applied, or the original
+   * @return The resolved color with Kiwi boost filters applied, or the original
    * color if no boost is active.
    * @see StyleAbsoluteColor::ToColor for reference.
    */

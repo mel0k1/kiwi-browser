@@ -75,14 +75,14 @@ export class nsZenBoostStyles {
       }
 
       if (zapBlocks != "") {
-        style += `/* Zen-Zaps */\n`;
+        style += `/* Kiwi-Zaps */\n`;
         style += `${zapBlocks}\n`;
       }
     }
 
     if (boostData.focusSelectors?.length) {
       const pages = Map.groupBy(boostData.focusSelectors, entry => entry.url);
-      style += `/* Zen-Focus */\n`;
+      style += `/* Kiwi-Focus */\n`;
       for (const [url, entries] of pages) {
         const rule =
           `:is(${entries.map(e => e.selector).join(", ")}) { ` +

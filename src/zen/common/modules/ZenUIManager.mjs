@@ -18,7 +18,7 @@ const NATIVE_POPOVER_PANELS = [
 ];
 
 /**
- * Window-level UI glue for Zen.
+ * Window-level UI glue for Kiwi.
  */
 class nsZenUIManager {
   testingEnabled = Services.prefs.getBoolPref("zen.testing.enabled", false);

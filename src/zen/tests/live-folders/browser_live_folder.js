@@ -12,7 +12,7 @@ function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-describe("Zen Live Folder Scheduling", () => {
+describe("Kiwi Live Folder Scheduling", () => {
   const INTERVAL = 250;
   const INTERVAL_OFFSET = 50;
 

@@ -76,7 +76,7 @@ add_setup(async function () {
     response.write(
       JSON.stringify({
         id: SHARE_ID,
-        name: "John Zen",
+        name: "John Kiwi",
         createdAt: new Date().toISOString(),
         expiresAt: null,
         size: 10,
@@ -96,7 +96,7 @@ add_setup(async function () {
 
 add_task(async function test_create_share() {
   const created = await ZenShareClient.createShare(VALID_DOC, {
-    name: "John Zen",
+    name: "John Kiwi",
   });
   Assert.equal(lastRequest.secretKey, null, "no secret key by default");
   Assert.deepEqual(
@@ -144,7 +144,7 @@ add_task(async function test_invalid_document_never_uploads() {
 
 add_task(async function test_fetch_share_preview() {
   const preview = await ZenShareClient.fetchSharePreview({ id: SHARE_ID });
-  Assert.equal(preview.name, "John Zen", "the sharer name comes back");
+  Assert.equal(preview.name, "John Kiwi", "the sharer name comes back");
   Assert.deepEqual(preview.doc, VALID_DOC, "the document comes back");
 
   await Assert.rejects(

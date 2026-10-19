@@ -33,7 +33,7 @@ add_task(
     // is enabled; temporarily disable it to exercise the real startup path.
     gZenUIManager.testingEnabled = false;
 
-    // The tab the startup page leaves selected, which Zen wants to replace.
+    // The tab the startup page leaves selected, which Kiwi wants to replace.
     const tabToRemove = BrowserTestUtils.addTab(gBrowser, "about:blank", {
       skipAnimation: true,
     });

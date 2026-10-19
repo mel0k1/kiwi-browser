@@ -580,7 +580,7 @@ index 9093501ce7d288a51ba4822637e58a67c3faa273..1b768808fba7706388588f66d7becfdc
      }
 -
 +    this.window.dispatchEvent(
-+      new CustomEvent("Zen:UrlbarSearchModeChanged", {
++      new CustomEvent("Kiwi:UrlbarSearchModeChanged", {
 +        detail: { searchMode },
 +      })
 +    );

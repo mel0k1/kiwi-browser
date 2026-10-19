@@ -504,7 +504,7 @@ static mozilla::StaticRefPtr<nsZenBoostsBackend> sZenBoostsBackend;
 
 auto nsZenBoostsBackend::GetInstance() -> nsZenBoostsBackend* {
   if (!XRE_IsContentProcess()) {
-    // Zen boosts are only supported in content, so if we're in the parent
+    // Kiwi boosts are only supported in content, so if we're in the parent
     // process, just return null.
     return nullptr;
   }

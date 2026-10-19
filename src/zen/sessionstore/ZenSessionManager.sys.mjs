@@ -288,7 +288,7 @@ export class nsZenSessionManager {
   async readFile() {
     this.init();
     try {
-      this.log("Reading Zen session file from disk");
+      this.log("Reading Kiwi session file from disk");
       await this.#readDataFromFile();
     } catch (e) {
       console.error("ZenSessionManager: Failed to read session file", e);
@@ -444,7 +444,7 @@ export class nsZenSessionManager {
     // are properly synced across all windows.
     if (!this._shouldRunMigration) {
       this.log(
-        `Restoring Zen session data into ${initialState.windows?.length || 0} windows`
+        `Restoring Kiwi session data into ${initialState.windows?.length || 0} windows`
       );
       for (let i = 0; i < initialState.windows.length; i++) {
         let winData = initialState.windows[i];
@@ -560,7 +560,7 @@ export class nsZenSessionManager {
 
   onRestoringClosedWindow(aWinData) {
     // We only want to save all pinned tabs if the user preference allows it.
-    // See https://github.com/zen-browser/desktop/issues/12307
+    // See upstream issue 12307
     if (this.#shouldRestoreOnlyPinned && aWinData?.tabs?.length) {
       this.log("Restoring only pinned tabs for closed window");
       this.#filterUnpinnedTabs(aWinData);
@@ -626,7 +626,7 @@ export class nsZenSessionManager {
     }
     lazy.ZenLiveFoldersManager.saveState(soon);
     this.#debounceRegeneration();
-    this.log(`Saving Zen session data with ${sidebar.tabs?.length || 0} tabs`);
+    this.log(`Saving Kiwi session data with ${sidebar.tabs?.length || 0} tabs`);
   }
 
   /**
@@ -728,7 +728,7 @@ export class nsZenSessionManager {
     ) {
       return;
     }
-    this.log("Saving closed window session data into Zen session store");
+    this.log("Saving closed window session data into Kiwi session store");
     this.saveState({ windows: [aWinData] }, true);
   }
 
@@ -885,7 +885,7 @@ export class nsZenSessionManager {
   }
 
   /**
-   * Restores a new window with Zen session data. This should be called
+   * Restores a new window with Kiwi session data. This should be called
    * not at startup, but when a new window is opened by the user.
    *
    * @param {Window} aWindow
@@ -899,7 +899,7 @@ export class nsZenSessionManager {
     if (aWindow.gZenWorkspaces?.privateWindowOrDisabled) {
       return;
     }
-    this.log("Restoring new window with Zen session data");
+    this.log("Restoring new window with Kiwi session data");
     void lazy.SessionStore.getCurrentState(true);
     // We want to iterate all windows except from aWindow.__SSi (string).
     // SessionStoreInternal._windows is an object, with the ID as key and the
@@ -1043,7 +1043,7 @@ export class nsZenSessionManager {
    * @param {Window} aWindow
    */
   onNewEmptySession(aWindow) {
-    this.log("Restoring empty session with Zen session data");
+    this.log("Restoring empty session with Kiwi session data");
     aWindow.gZenWorkspaces.restoreWorkspacesFromSessionStore({
       spaces: this.#sidebarWithoutCloning.spaces || [],
     });

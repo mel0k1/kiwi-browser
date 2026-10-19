@@ -290,7 +290,7 @@ index 76cab7f8e4630119c8f166f14bfc5a781f49f5fd..740663df4122bf8ad64c079b2e4e9655
        }
        case "mousedown": {
 -        if (aEvent.button != 0) {
-+        if (aEvent.button != 0 || this.#toolbar.id == "zen-sidebar-top-buttons") { // Fix https://github.com/zen-browser/desktop/issues/7718
++        if (aEvent.button != 0 || this.#toolbar.id == "zen-sidebar-top-buttons") { // Fix upstream issue 7718
            break;
          }
          if (aEvent.target == this.#defaultListButton) {

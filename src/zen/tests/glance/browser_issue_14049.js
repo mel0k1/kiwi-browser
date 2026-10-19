@@ -43,7 +43,7 @@ add_task(async function test_Glance_Close_Pinned_Parent() {
   const parentTab = gBrowser.selectedTab;
   ok(parentTab.pinned, "Parent tab should be pinned");
 
-  // selectEmptyTab() is a no-op while Zen's testing mode is enabled, so the
+  // selectEmptyTab() is a no-op while Kiwi's testing mode is enabled, so the
   // regression cannot be observed through the resulting selection alone. Spy on
   // it instead: the bug is "selectEmptyTab gets called when a glance is closed".
   let selectEmptyTabCalled = false;

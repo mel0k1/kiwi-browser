@@ -1350,7 +1350,7 @@ class nsZenFolders extends nsZenDOMOperatedFeature {
           }
         }
       } catch (e) {
-        console.error("Error restoring Zen Folders session data:", e);
+        console.error("Error restoring Kiwi Folders session data:", e);
       }
     }
 
@@ -1380,7 +1380,7 @@ class nsZenFolders extends nsZenDOMOperatedFeature {
               }
               // If we didn't find the group, we should debug it and continue to default case.
               console.error(
-                `Zen Folders: Could not find previous sibling with id ${stateData.prevSiblingInfo.id} while restoring session.`
+                `Kiwi Folders: Could not find previous sibling with id ${stateData.prevSiblingInfo.id} while restoring session.`
               );
               // @eslint-disable-next-line no-fallthrough
             }
@@ -1393,7 +1393,7 @@ class nsZenFolders extends nsZenDOMOperatedFeature {
                 parentWorkingData.node.groupStartElement;
               if (!start) {
                 console.error(
-                  `Zen Folders: Could not find start element for parent folder with id ${stateData.parentId} while restoring session.`
+                  `Kiwi Folders: Could not find start element for parent folder with id ${stateData.parentId} while restoring session.`
                 );
                 break;
               }
@@ -1481,7 +1481,7 @@ class nsZenFolders extends nsZenDOMOperatedFeature {
     if (tab.multiselected || tab.selected) {
       return true;
     }
-    // See https://github.com/zen-browser/desktop/issues/12509.
+    // See upstream issue 12509.
     // We can't just blindly check for the tab's active state
     // because it would mean that all tabs in a collapsed group that
     // are active means they should be active for contextGroup as well,

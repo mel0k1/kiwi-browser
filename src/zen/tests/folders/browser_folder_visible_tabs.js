@@ -10,7 +10,7 @@ add_task(async function test_Not_Visible_Collapsed() {
   Assert.equal(
     folder.tabs.length,
     2,
-    "Subfolder contains the tab and the empty tab created by Zen Folders"
+    "Subfolder contains the tab and the empty tab created by Kiwi Folders"
   );
   ok(tab.visible, "Tab is visible in the folder");
 
@@ -27,7 +27,7 @@ add_task(async function test_Visible_Selected() {
   Assert.equal(
     folder.tabs.length,
     2,
-    "Subfolder contains the tab and the empty tab created by Zen Folders"
+    "Subfolder contains the tab and the empty tab created by Kiwi Folders"
   );
   ok(tab.visible, "Tab is visible in the folder");
   gBrowser.selectedTab = tab;
@@ -59,7 +59,7 @@ add_task(async function test_Visible_Not_Selected() {
   Assert.equal(
     folder.tabs.length,
     2,
-    "Subfolder contains the tab and the empty tab created by Zen Folders"
+    "Subfolder contains the tab and the empty tab created by Kiwi Folders"
   );
   ok(tab.visible, "Tab is visible in the folder");
   gBrowser.selectedTab = tab;

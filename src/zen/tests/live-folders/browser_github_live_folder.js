@@ -136,16 +136,16 @@ add_task(async function test_html_parsing_logic() {
       <body>
         <ul>
           <li class="ListItem-module__listItem__wBJcm">
-            <h4><a data-testid="issue-listitem-title-link" href="https://github.com/zen-browser/desktop/issues/101"><span><span>Fix the login bug</span></span></a></h4>
+            <h4><a data-testid="issue-listitem-title-link" href="https://github.com/mel0k1/kiwi-browser/issues/101"><span><span>Fix the login bug</span></span></a></h4>
             <div class="Description-module__container__hpqJz">
-              <span>zen-browser/desktop#101</span>
+              <span>mel0k1/kiwi-browser#101</span>
               <span> · <button data-testid="author-filter-link"><span class="prc-VisuallyHidden-VisuallyHidden-Q0qSB">Filter by author </span>UserA</button></span>
             </div>
           </li>
           <li class="ListItem-module__listItem__wBJcm">
-            <h4><a data-testid="issue-listitem-title-link" href="https://github.com/zen-browser/desktop/pull/102"><span><span>Add dark mode</span></span></a></h4>
+            <h4><a data-testid="issue-listitem-title-link" href="https://github.com/mel0k1/kiwi-browser/pull/102"><span><span>Add dark mode</span></span></a></h4>
             <div class="Description-module__container__hpqJz">
-              <span>zen-browser/desktop#102</span>
+              <span>mel0k1/kiwi-browser#102</span>
               <span> · <button data-testid="author-filter-link"><span class="prc-VisuallyHidden-VisuallyHidden-Q0qSB">Filter by author </span>UserB</button></span>
             </div>
           </li>
@@ -165,16 +165,16 @@ add_task(async function test_html_parsing_logic() {
 
   Assert.equal(items[0].title, "Fix the login bug");
   Assert.equal(items[0].subtitle, "UserA");
-  Assert.equal(items[0].id, "zen-browser/desktop#101");
+  Assert.equal(items[0].id, "mel0k1/kiwi-browser#101");
   Assert.equal(
     items[0].url,
-    "https://github.com/zen-browser/desktop/issues/101"
+    "https://github.com/mel0k1/kiwi-browser/issues/101"
   );
 
   Assert.equal(items[1].title, "Add dark mode");
   Assert.equal(items[1].subtitle, "UserB");
-  Assert.equal(items[1].id, "zen-browser/desktop#102");
-  Assert.equal(items[1].url, "https://github.com/zen-browser/desktop/pull/102");
+  Assert.equal(items[1].id, "mel0k1/kiwi-browser#102");
+  Assert.equal(items[1].url, "https://github.com/mel0k1/kiwi-browser/pull/102");
 
   sandbox.restore();
 });
@@ -255,7 +255,7 @@ add_task(async function test_server_error_returns_failed_fetch() {
     type: "pull-requests",
     authorMe: true,
   });
-  instance.state.repos = new Set(["zen-browser/desktop"]);
+  instance.state.repos = new Set(["mel0k1/kiwi-browser"]);
 
   for (const status of [429, 500, 503]) {
     instance.fetch.resolves({ status, text: "" });
@@ -269,7 +269,7 @@ add_task(async function test_server_error_returns_failed_fetch() {
     );
     Assert.deepEqual(
       [...instance.state.repos],
-      ["zen-browser/desktop"],
+      ["mel0k1/kiwi-browser"],
       "Should keep the known repositories"
     );
   }
@@ -286,7 +286,7 @@ add_task(async function test_repo_excludes_emit_negative_repo_filters() {
     authorMe: true,
     assignedMe: false,
     reviewRequested: false,
-    repoExcludes: ["zen-browser/desktop", "foo/bar"],
+    repoExcludes: ["mel0k1/kiwi-browser", "foo/bar"],
   });
 
   instance.fetch.resolves({ status: 200, text: "<html></html>" });
@@ -297,8 +297,8 @@ add_task(async function test_repo_excludes_emit_negative_repo_filters() {
   const query = fetchedUrl.searchParams.get("q");
 
   Assert.ok(
-    query.includes("-repo:zen-browser/desktop"),
-    "Should exclude zen-browser/desktop from the query"
+    query.includes("-repo:mel0k1/kiwi-browser"),
+    "Should exclude mel0k1/kiwi-browser from the query"
   );
   Assert.ok(
     query.includes("-repo:foo/bar"),
@@ -322,18 +322,18 @@ add_task(async function test_pull_requests_json_api_parsing() {
       pullsDashboardSurfaceContentRoute: {
         results: [
           {
-            repoNameWithOwner: "zen-browser/desktop",
+            repoNameWithOwner: "mel0k1/kiwi-browser",
             number: 42,
             title: "Add live folders",
             author: { displayLogin: "alice" },
-            permalink: "https://github.com/zen-browser/desktop/pull/42",
+            permalink: "https://github.com/mel0k1/kiwi-browser/pull/42",
           },
           {
-            repoNameWithOwner: "zen-browser/desktop",
+            repoNameWithOwner: "mel0k1/kiwi-browser",
             number: 43,
             title: "Fix bug",
             author: { displayLogin: "bob" },
-            permalink: "https://github.com/zen-browser/desktop/pull/43",
+            permalink: "https://github.com/mel0k1/kiwi-browser/pull/43",
           },
         ],
       },
@@ -345,11 +345,11 @@ add_task(async function test_pull_requests_json_api_parsing() {
   const items = await instance.fetchItems();
 
   Assert.equal(items.length, 2, "Should parse two PRs from the JSON payload");
-  Assert.equal(items[0].id, "zen-browser/desktop#42");
+  Assert.equal(items[0].id, "mel0k1/kiwi-browser#42");
   Assert.equal(items[0].title, "Add live folders");
   Assert.equal(items[0].subtitle, "alice");
-  Assert.equal(items[0].url, "https://github.com/zen-browser/desktop/pull/42");
-  Assert.equal(items[1].id, "zen-browser/desktop#43");
+  Assert.equal(items[0].url, "https://github.com/mel0k1/kiwi-browser/pull/42");
+  Assert.equal(items[1].id, "mel0k1/kiwi-browser#43");
   Assert.ok(
     instance.state.isJsonApi,
     "Should mark the provider as using the JSON API"

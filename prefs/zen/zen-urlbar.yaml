@@ -43,7 +43,7 @@
 - name: zen.urlbar.open-on-startup
   value: true
 
-# Mark: Zen suggestions controls
+# Mark: Kiwi suggestions controls
 
 - name: zen.urlbar.suggestions.quick-actions
   value: true

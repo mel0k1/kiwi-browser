@@ -6,7 +6,7 @@
 // Shared mozilla-central fixture from the Picture-in-Picture tests: an HTML
 // page with two looping <video src="gizmo.mp4"> elements (with and without
 // controls). Looping keeps playback stable across slow CI, and using a real
-// <video> element is closer to what Zen users actually play (YouTube, etc.)
+// <video> element is closer to what Kiwi users actually play (YouTube, etc.)
 // than a bare <audio>.
 const MEDIA_PAGE =
   "https://example.com/browser/toolkit/components/pictureinpicture/tests/test-page-with-sound.html";

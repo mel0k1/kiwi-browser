@@ -13,7 +13,7 @@ add_task(async function test_Create_Folder() {
   Assert.equal(
     folder.tabs.length,
     2,
-    "Folder contains the tab and the empty tab created by Zen Folders"
+    "Folder contains the tab and the empty tab created by Kiwi Folders"
   );
   ok(tab.pinned, "Tab is pinned after folder creation");
   Assert.equal(folder.label, "test", "Folder label is set correctly");

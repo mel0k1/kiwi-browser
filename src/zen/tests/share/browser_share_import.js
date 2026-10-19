@@ -63,7 +63,7 @@ add_setup(async function () {
 });
 
 add_task(async function test_overlay_preview() {
-  const restore = stubSharePreview(SPACE_DOC, "John Zen");
+  const restore = stubSharePreview(SPACE_DOC, "John Kiwi");
   const { tab, overlay } = await openShareOverlay(
     `${SHARE_BASE}/space/${SHARE_ID}`
   );
@@ -102,7 +102,7 @@ add_task(async function test_overlay_preview() {
 });
 
 add_task(async function test_import_space() {
-  const restore = stubSharePreview(SPACE_DOC, "John Zen");
+  const restore = stubSharePreview(SPACE_DOC, "John Kiwi");
   let sweepPlayed = false;
   const restoreSweep = stubMethod(
     gZenStartup,

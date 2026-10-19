@@ -37,7 +37,7 @@
   }
 
   :root[inDOMFullscreen] & {
-    /* See issue https://github.com/zen-browser/desktop/issues/5229 */
+    /* See issue upstream issue 5229 */
     visibility: visible;
   }
 

@@ -19,7 +19,7 @@
   --zen-branding-bg: light-dark(var(--zen-branding-paper), var(--zen-branding-dark));
   --zen-branding-bg-reverse: light-dark(var(--zen-branding-dark), var(--zen-branding-paper));
 
-  /** Zen colors are generated automatically from the primary color */
+  /** Kiwi colors are generated automatically from the primary color */
   --zen-colors-primary: light-dark(
     color-mix(in srgb, var(--zen-primary-color) 50%, black 50%),
     color-mix(in srgb, var(--zen-primary-color) 20%, var(--zen-branding-bg) 80%)

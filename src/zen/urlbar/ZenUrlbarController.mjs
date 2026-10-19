@@ -7,7 +7,7 @@ import { UrlbarShared } from "chrome://browser/content/urlbar/UrlbarShared.mjs";
 const SEARCH_MODE_ANIMATION_RESET_MS = 1000;
 
 /**
- * Zen's behaviour on top of Firefox's URL bar.
+ * Kiwi's behaviour on top of Firefox's URL bar.
  */
 export class nsZenUrlbarController {
   // The URL bar session that currently replaces a new tab.
@@ -49,7 +49,7 @@ export class nsZenUrlbarController {
     gURLBar._zenTrimURL = this.trimURL.bind(this);
     gURLBar._setPlaceholder(null);
 
-    window.addEventListener("Zen:UrlbarSearchModeChanged", event =>
+    window.addEventListener("Kiwi:UrlbarSearchModeChanged", event =>
       this.#onSearchModeChanged(event)
     );
   }
@@ -329,7 +329,7 @@ export class nsZenUrlbarController {
   }
 
   /**
-   * Switches the floating URL bar into Zen's commands search mode.
+   * Switches the floating URL bar into Kiwi's commands search mode.
    *
    * @param {Event} event - The keyboard event that requested commands mode.
    */

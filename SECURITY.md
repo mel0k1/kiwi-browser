@@ -8,4 +8,4 @@
 
 ## Reporting a Vulnerability
 
-Please report security vulnerabilities [here](https://github.com/zen-browser/desktop/security/advisories/new)
+Please report security vulnerabilities [here](https://github.com/mel0k1/kiwi-browser/security/advisories/new)

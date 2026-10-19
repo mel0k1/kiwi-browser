@@ -133,7 +133,7 @@ class nsZenBoostsManager {
         enableColorBoost: false,
         smartInvert: false,
 
-        // Choses theme based on Zen's workspace theme
+        // Choses theme based on Kiwi's workspace theme
         autoTheme: false,
 
         textCaseOverride: "none",

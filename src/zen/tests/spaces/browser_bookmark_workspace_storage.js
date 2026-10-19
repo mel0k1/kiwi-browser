@@ -112,7 +112,7 @@ add_task(async function test_save_bookmark_in_two_spaces() {
 
 add_task(async function test_migrate_old_tables() {
   for (const [version, constraints] of Object.entries(OLD_CONSTRAINTS)) {
-    info(`Migrating tables created by Zen ${version}`);
+    info(`Migrating tables created by Kiwi ${version}`);
     await withTestDatabase(async db => {
       for (const { name, index, indexColumns, columns, values } of TABLES) {
         await db.execute(`CREATE TABLE ${name} (

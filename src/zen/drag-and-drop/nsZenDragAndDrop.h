@@ -23,7 +23,7 @@ namespace zen {
  * @brief Implementation of the nsIZenDragAndDrop interface.
  * When we want to do a drag and drop operation, web standards
  * don't really allow much customization of the drag image.
- * This class allows Zen to have more control over the drag
+ * This class allows Kiwi to have more control over the drag
  * and drop operations for the tabs.
  */
 class nsZenDragAndDrop final : public nsIZenDragAndDrop {
