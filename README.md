@@ -1,52 +1,56 @@
-<!--
-   - This Source Code Form is subject to the terms of the Mozilla Public
-   - License, v. 2.0. If a copy of the MPL was not distributed with this
-   - file, You can obtain one at http://mozilla.org/MPL/2.0/.
-   -->
-<!-- TODO: Get a job -->
-<img src="./docs/assets/zen-dark.svg" width="100px" align="left">
+<div align="center">
 
-### `Zen Browser`
+# 🥝 Kiwi Browser
 
-[![Downloads](https://img.shields.io/github/downloads/zen-browser/desktop/total.svg)](https://github.com/zen-browser/desktop/releases)
-[![Crowdin](https://badges.crowdin.net/zen-browser/localized.svg)](https://crowdin.com/project/zen-browser)
-[![Zen Release builds](https://github.com/zen-browser/desktop/actions/workflows/build.yml/badge.svg?branch=stable)](https://github.com/zen-browser/desktop/actions/workflows/build.yml)
+**Браузер на базе Firefox, который подстраивается под вас — а не наоборот.**
 
-Zen is a firefox-based browser with the aim of pushing your productivity to a new level!
+Форк [Zen Browser](https://github.com/zen-browser/desktop) с фокусом на глубокую кастомизацию интерфейса.
 
-<div flex="true">
-  <a href="https://zen-browser.app/download">
-    Download
-  </a>
-  •
-  <a href="https://zen-browser.app">
-    Website
-  </a>
-  •
-  <a href="https://docs.zen-browser.app">
-    Documentation
-  </a>
-  •
-  <a href="https://zen-browser.app/release-notes/latest">
-    Release Notes
-  </a>
+[![License: MPL-2.0](https://img.shields.io/badge/license-MPL--2.0-green.svg)](https://www.mozilla.org/MPL/2.0/)
+[![Engine](https://img.shields.io/badge/engine-Gecko%20·%20Firefox%20158-blue)](https://www.mozilla.org/firefox/)
+[![Upstream](https://img.shields.io/badge/upstream-Zen%20Browser-8b5cf6)](https://github.com/zen-browser/desktop)
+[![Builds](https://img.shields.io/badge/builds-Releases-orange)](../../releases)
+
 </div>
 
-### Firefox Versions
+## 🎯 Зачем нужен Kiwi
 
-- [`Release`](https://zen-browser.app/download) - Is currently built using Firefox version `158.0`!
-- [`Twilight`](https://zen-browser.app/download?twilight) - Is currently built using Firefox version `RC 158.0`!
+Zen Browser уже задал высокую планку среди продуктивных Firefox-браузеров. Kiwi идёт дальше: меньше догм в интерфейсе, больше настроек. Положение, размер и поведение ключевых элементов оболочки должны решать вы, а не разработчик. Мы не стремимся переписать всё — мы аккуратно развиваем то, что уже работает.
 
-### Contributing
+## 🗺️ Дорожная карта
 
-If you'd like to report a bug, please do so on our [GitHub Issues page](https://github.com/zen-browser/desktop/issues/) and for feature requests, you can use [GitHub Discussions](https://github.com/zen-browser/desktop/discussions).
+- **Кастомизация боковой панели** — расположение сверху / снизу / слева / справа переключается прямо в настройках браузера
+- **Расширенная кастомизация UI** — панели, отступы, поведение элементов интерфейса
+- **Своё — по делу** — только функции, которые реально улучшают повседневную работу
 
-Zen is an open-source project, and we welcome contributions from the community! Please take a look at the [contribution guidelines](./docs/contribute.md) before getting started!
+## 📦 Установка
 
-#### Partners
+Проект в начале пути. Первые сборки появятся в разделе [Releases](../../releases).
 
-Thanks to all the partners of Zen for their support and contributions:
+## 🛠️ Сборка из исходников
 
-<a href="https://blacksmith.sh">
-  <img src="./docs/assets/blacksmith-yellow.png" width="350px"/>
-</a>
+Kiwi использует конвейер Zen: утилита `surfer` скачивает исходники Firefox, импортирует наши изменения в дерево `engine/` и собирает браузер через `mach`.
+
+Требования: Linux, macOS или Windows · Node.js · Python 3 · Rust · ~40 ГБ на диске.
+
+```bash
+git clone https://github.com/mel0k1/kiwi-browser.git
+cd kiwi-browser
+npm install
+npm run init      # скачать Firefox, импортировать изменения, bootstrap
+npm run build     # сборка браузера
+npm start         # запуск собранного браузера
+```
+
+Подробности о конвейере сборки — в [docs](./docs) и [документации Zen](https://docs.zen-browser.app).
+
+## 🌿 Ветки
+
+| Ветка    | Назначение                                        |
+| -------- | ------------------------------------------------- |
+| `dev`    | Основная разработка (как Twilight у Zen)          |
+| `stable` | Релизная ветка, унаследована от Zen               |
+
+## 📄 Лицензия
+
+[MPL-2.0](./LICENSE). Kiwi — форк Zen Browser, построенного на движке Mozilla Firefox.
