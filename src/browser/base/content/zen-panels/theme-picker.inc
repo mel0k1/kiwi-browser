@@ -37,6 +37,7 @@
             <box class="no-squircles" data-lightness="60" data-algo="float" data-num-dots="1" data-position="225,237" style="background: #dcce7f;"></box>
             <box class="no-squircles" data-lightness="60" data-algo="float" data-num-dots="1" data-position="147,195" style="background: #5becad;"></box>
             <box class="no-squircles" data-lightness="50" data-algo="float" data-num-dots="1" data-position="81,84" style="background: #919bb5;"></box>
+            <box class="no-squircles" data-lightness="80" data-algo="float" data-num-dots="1" data-position="244,165" style="background: #f5c1d1;"></box>
           </hbox>
           <hbox>
             <box class="no-squircles" data-lightness="90" data-algo="analogous" data-num-dots="3" data-position="240,240"
@@ -83,6 +84,8 @@
                 style="--c1: rgb(64, 47, 38); --c2: rgb(55, 64, 38); --c3: rgb(59, 43, 52);" />
             <box class="no-squircles" data-lightness="20" data-algo="analogous" data-num-dots="3" data-position="118,215"
                 style="--c1: rgb(22, 80, 61); --c2: rgb(26, 60, 76); --c3: rgb(27, 87, 15);" />
+            <box class="no-squircles" data-lightness="12" data-algo="analogous" data-num-dots="3" data-position="298,169"
+                style="--c1: rgb(30, 14, 18); --c2: rgb(94, 22, 34); --c3: rgb(56, 20, 44);" />
           </hbox>
           <hbox>
 # Start from black to white in a span on 8 steps and.
