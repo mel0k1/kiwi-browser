@@ -1,8 +1,8 @@
 {
-  "name": "Zen Browser",
-  "vendor": "Zen OSS Team",
-  "appId": "zen",
-  "binaryName": "zen",
+  "name": "Kiwi Browser",
+  "vendor": "Kiwi OSS Team",
+  "appId": "kiwi",
+  "binaryName": "kiwi",
   "version": {
     "product": "firefox",
     "version": "158.0",
@@ -15,14 +15,14 @@
   "addons": {},
   "brands": {
     "release": {
-      "backgroundColor": "#282A33",
-      "brandShorterName": "Zen",
-      "brandShortName": "Zen",
-      "brandFullName": "Zen Browser",
+      "backgroundColor": "#1F2A24",
+      "brandShorterName": "Kiwi",
+      "brandShortName": "Kiwi",
+      "brandFullName": "Kiwi Browser",
       "release": {
-        "displayVersion": "1.23.3b",
+        "displayVersion": "1.0.0b",
         "github": {
-          "repo": "zen-browser/desktop"
+          "repo": "mel0k1/kiwi-browser"
         },
         "archives": {
           "windows": "windows.mar",
@@ -35,14 +35,14 @@
       }
     },
     "twilight": {
-      "backgroundColor": "#282A33",
-      "brandShorterName": "Zen",
-      "brandShortName": "Twilight",
-      "brandFullName": "Zen Twilight",
+      "backgroundColor": "#1F2A24",
+      "brandShorterName": "Kiwi",
+      "brandShortName": "Night",
+      "brandFullName": "Kiwi Night",
       "release": {
-        "displayVersion": "1.24t",
+        "displayVersion": "1.0.0t",
         "github": {
-          "repo": "zen-browser/desktop"
+          "repo": "mel0k1/kiwi-browser"
         }
       }
     }
@@ -53,5 +53,5 @@
     ],
     "licenseType": "MPL-2.0"
   },
-  "updateHostname": "updates.zen-browser.app"
+  "updateHostname": "updates.kiwi-browser.app"
 }
