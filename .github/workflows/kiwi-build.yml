@@ -33,6 +33,11 @@ jobs:
         with:
           node-version-file: .nvmrc
 
+      - name: Setup Git
+        run: |
+          git config --global user.name "kiwi-ci"
+          git config --global user.email "ci@kiwi-browser.local"
+
       - name: Install system dependencies
         run: |
           sudo apt-get update
