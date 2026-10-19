@@ -1258,6 +1258,11 @@ Preferences.addAll([
     default: "left",
   },
   {
+    id: "kiwi.ui.disable-transparency",
+    type: "bool",
+    default: false,
+  },
+  {
     id: "zen.window-sync.sync-only-pinned-tabs",
     type: "bool",
     default: false,

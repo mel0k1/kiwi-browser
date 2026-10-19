@@ -325,3 +325,20 @@ zen-close-all-unpinned-tabs-shortcut = Закрыть все не закрепл
 zen-new-unsynced-window-shortcut = Новое пустое окно
 zen-duplicate-tab-shortcut = Дублировать вкладку
 zen-key-find-selection = Найти выбранное
+
+kiwi-sidebar-position-header = Позиция панели вкладок
+kiwi-sidebar-position-description = Выберите, где будет панель с вкладками. Положения «Сверху» и «Снизу» переключают на классическую раскладку.
+kiwi-sidebar-position-label = Позиция
+kiwi-sidebar-position-left =
+    .label = Слева
+kiwi-sidebar-position-right =
+    .label = Справа
+kiwi-sidebar-position-top =
+    .label = Сверху
+kiwi-sidebar-position-bottom =
+    .label = Снизу
+
+kiwi-transparency-header = Прозрачность
+kiwi-transparency-description = Сделать фон браузера полностью непрозрачным, отключив эффекты размытия.
+kiwi-transparency-disable =
+    .label = Отключить прозрачность

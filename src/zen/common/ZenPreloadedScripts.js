@@ -18,6 +18,7 @@
     "chrome://browser/content/zen-components/ZenCompactMode.mjs",
     "chrome://browser/content/ZenUIManager.mjs",
     "chrome://browser/content/zen-components/KiwiSidebarPosition.mjs",
+    "chrome://browser/content/zen-components/KiwiTransparency.mjs",
     "resource:///modules/zen/ZenVerticalTabsManager.mjs",
     "chrome://browser/content/zen-components/ZenMods.mjs",
     "chrome://browser/content/zen-components/ZenKeyboardShortcuts.mjs",

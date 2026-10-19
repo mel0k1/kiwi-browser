@@ -64,6 +64,7 @@ class nsZenUIManager {
 
     gZenVerticalTabsManager.init();
     gKiwiSidebarPosition.init();
+    gKiwiTransparency.init();
     this.#urlbar.init();
 
     this.#markAcrylicSupport();

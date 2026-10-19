@@ -120,6 +120,11 @@ kiwi-sidebar-position-top =
 kiwi-sidebar-position-bottom =
     .label = Bottom
 
+kiwi-transparency-header = Transparency
+kiwi-transparency-description = Make the browser background fully opaque and disable blur effects.
+kiwi-transparency-disable =
+    .label = Disable transparency
+
 pane-zen-workspaces-header = Workspaces
 zen-settings-workspaces-header = General settings for workspaces
 zen-settings-workspaces-description = With workspaces, you can have multiple browsing sessions at once!

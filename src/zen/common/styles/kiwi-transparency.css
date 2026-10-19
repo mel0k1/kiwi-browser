@@ -1,0 +1,4 @@
+:root[kiwi-opaque] .zen-browser-generic-background:not([animating-background])::before {
+  background: light-dark(rgb(233, 233, 233), rgb(19, 19, 19)) !important;
+  opacity: 1 !important;
+}
