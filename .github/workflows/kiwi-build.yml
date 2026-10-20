@@ -217,11 +217,13 @@ jobs:
           ls dist
           shopt -s nullglob
           i=(dist/*.installer.exe)
-          z=(dist/*.zip)
+          z=(dist/kiwi-*.en-US.win64.zip)
           test ${#i[@]} -gt 0 || { echo "No installer found"; ls dist; exit 1; }
-          test ${#z[@]} -gt 0 || { echo "No zip found"; ls dist; exit 1; }
+          test ${#z[@]} -gt 0 || { echo "No browser zip found"; ls dist; exit 1; }
           mv "${i[0]}" kiwi.installer.exe
           mv "${z[0]}" kiwi-win64.zip
+          test $(stat -c%s kiwi.installer.exe) -gt 50000000 || { echo "Installer too small"; exit 1; }
+          test $(stat -c%s kiwi-win64.zip) -gt 50000000 || { echo "Zip too small"; exit 1; }
           ls -la kiwi.installer.exe kiwi-win64.zip
 
       - name: Upload installer
