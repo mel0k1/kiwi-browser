@@ -70,6 +70,9 @@ jobs:
           cd engine
           ./mach --no-interactive bootstrap --application-choice browser
 
+      - name: Build language packs
+        run: sh scripts/download-language-packs.sh
+
       - name: Build
         run: npm run build
 
@@ -194,6 +197,9 @@ jobs:
           cargo download -x windows=$WINDOWS_RS_VERSION
           echo "" >> ../configs/common/mozconfig
           echo "export MOZ_WINDOWS_RS_DIR=$(pwd)/windows-$WINDOWS_RS_VERSION" >> ../configs/common/mozconfig
+
+      - name: Build language packs
+        run: sh scripts/download-language-packs.sh
 
       - name: Build
         env:
