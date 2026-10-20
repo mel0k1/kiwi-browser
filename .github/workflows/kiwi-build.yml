@@ -65,6 +65,9 @@ jobs:
       - name: Import
         run: npm run import
 
+      - name: Rewrite branding URLs
+        run: python3 scripts/kiwi_branding_urls.py
+
       - name: Bootstrap
         run: |
           cd engine
@@ -172,6 +175,9 @@ jobs:
           test -f "$HOME/.cargo/env" || curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
           . "$HOME/.cargo/env"
           npm run import -- --verbose
+
+      - name: Rewrite branding URLs
+        run: python3 scripts/kiwi_branding_urls.py
 
       - name: Bootstrap
         run: |
