@@ -1,0 +1,201 @@
+/* This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
+
+.kiwi-player {
+  position: fixed;
+  bottom: 14px;
+  inset-inline-end: 14px;
+  z-index: 5;
+  width: 320px;
+  padding: 10px 12px;
+  border-radius: 14px;
+  background: var(--arrowpanel-background, #2b2a33);
+  color: var(--arrowpanel-color, #fbfbfe);
+  border: 1px solid var(--arrowpanel-border-color, rgba(255, 255, 255, 0.15));
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.45);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 12px;
+  user-select: none;
+  transition: opacity 0.18s ease, transform 0.18s ease;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.kiwi-player[hidden] {
+  display: none;
+}
+
+:root[kiwi-player-corner="left"] .kiwi-player {
+  inset-inline-end: auto;
+  inset-inline-start: 14px;
+}
+
+:root[inFullscreen] .kiwi-player {
+  display: none;
+}
+
+.kiwi-player-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.kiwi-player-art {
+  width: 44px;
+  height: 44px;
+  border-radius: 8px;
+  object-fit: cover;
+  background: rgba(255, 255, 255, 0.08);
+  flex-shrink: 0;
+}
+
+.kiwi-player-art-fallback {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='rgba(255,255,255,0.45)' d='M12 3v10.55A4 4 0 1 0 14 17V7h4V3h-6z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 22px;
+}
+
+.kiwi-player-texts {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.kiwi-player-title {
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.kiwi-player-artist {
+  opacity: 0.7;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.kiwi-player-controls,
+.kiwi-player-header .kiwi-player-btn {
+  align-self: center;
+}
+
+.kiwi-player-header .kiwi-player-tab,
+.kiwi-player-header .kiwi-player-close {
+  opacity: 0.6;
+}
+
+.kiwi-player-header .kiwi-player-tab:hover,
+.kiwi-player-header .kiwi-player-close:hover {
+  opacity: 1;
+}
+
+.kiwi-player-btn {
+  appearance: none;
+  margin: 0;
+  padding: 4px;
+  min-width: 24px;
+  min-height: 24px;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.kiwi-player-btn:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.kiwi-player-btn:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.kiwi-player-btn svg {
+  fill: currentColor;
+  pointer-events: none;
+}
+
+.kiwi-player-playpause {
+  background: var(--arrowpanel-dimmed-further, rgba(255, 255, 255, 0.2));
+  border-radius: 50%;
+  min-width: 30px;
+  min-height: 30px;
+}
+
+.kiwi-player-controls {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.kiwi-player-controls .kiwi-player-mute {
+  margin-inline-start: auto;
+}
+
+.kiwi-player-seekrow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.kiwi-player-seekrow[kiwi-live] .kiwi-player-seek {
+  visibility: hidden;
+}
+
+.kiwi-player-seekrow[kiwi-live] .kiwi-player-dur {
+  font-weight: 700;
+  color: #ff5969;
+}
+
+.kiwi-player-time {
+  font-variant-numeric: tabular-nums;
+  opacity: 0.75;
+  min-width: 34px;
+  text-align: center;
+}
+
+.kiwi-player-seek {
+  flex: 1;
+  appearance: none;
+  height: 4px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.25);
+  outline: none;
+  cursor: pointer;
+}
+
+.kiwi-player-seek::-moz-range-thumb {
+  width: 12px;
+  height: 12px;
+  border: none;
+  border-radius: 50%;
+  background: var(--arrowpanel-color, #fbfbfe);
+}
+
+.kiwi-player-seek:disabled {
+  cursor: default;
+  opacity: 0.5;
+}
+
+.kiwi-player-seek::-moz-range-progress {
+  background: var(--arrowpanel-color, #fbfbfe);
+  border-radius: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .kiwi-player {
+    transition: none;
+  }
+}

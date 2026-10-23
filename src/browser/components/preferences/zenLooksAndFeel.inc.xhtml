@@ -81,6 +81,33 @@
       </vbox>
 </groupbox>
 
+<hbox id="kiwiPlayerCategory"
+      class="subcategory"
+      hidden="true"
+      data-category="paneZenLooks">
+<html:h1 data-l10n-id="kiwi-player-header"/>
+</hbox>
+
+<groupbox id="kiwiPlayerGroup" data-category="paneZenLooks" hidden="true" class="highlighting-group">
+      <label><html:h2 data-l10n-id="kiwi-player-settings-header"/></label>
+      <description class="description-deemphasized" data-l10n-id="kiwi-player-settings-description" />
+
+      <vbox class="indent">
+            <checkbox id="kiwiPlayerEnabled"
+                  data-l10n-id="kiwi-player-enabled"
+                  preference="kiwi.player.enabled"/>
+            <hbox align="center">
+                  <label data-l10n-id="kiwi-player-corner-label"/>
+                  <menulist id="kiwiPlayerCorner" preference="kiwi.player.corner">
+                        <menupopup>
+                              <menuitem data-l10n-id="kiwi-player-corner-right" value="right"/>
+                              <menuitem data-l10n-id="kiwi-player-corner-left" value="left"/>
+                        </menupopup>
+                  </menulist>
+            </hbox>
+      </vbox>
+</groupbox>
+
 <hbox id="zenGlanceCategory"
       class="subcategory"
       hidden="true"

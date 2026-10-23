@@ -392,3 +392,14 @@ zen-close-all-unpinned-tabs-shortcut = Close All Unpinned Tabs
 zen-new-unsynced-window-shortcut = New Blank Window
 zen-duplicate-tab-shortcut = Duplicate Tab
 zen-key-find-selection = Find Selection
+
+kiwi-player-header = Media Player
+kiwi-player-settings-header = Mini player
+kiwi-player-settings-description = A small floating player that shows what is playing in any tab: title, artwork, playback controls and seeking. Works with VK, YouTube Music, Spotify, SoundCloud and other players.
+kiwi-player-enabled =
+    .label = Show the mini player when music is playing
+kiwi-player-corner-label = Player position:
+kiwi-player-corner-right =
+    .label = Bottom right
+kiwi-player-corner-left =
+    .label = Bottom left

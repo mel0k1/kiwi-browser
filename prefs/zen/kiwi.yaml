@@ -1,2 +1,12 @@
 - name: kiwi.ui.disable-transparency
   value: false
+- name: kiwi.player.enabled
+  value: true
+- name: kiwi.player.corner
+  value: right
+- name: kiwi.tabs.double-click-newtab
+  value: true
+- name: browser.newtabpage.activityStream.showSponsored
+  value: false
+- name: browser.newtabpage.activityStream.showSponsoredTopSites
+  value: false

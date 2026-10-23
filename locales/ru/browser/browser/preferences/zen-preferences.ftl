@@ -342,3 +342,14 @@ kiwi-transparency-header = Прозрачность
 kiwi-transparency-description = Сделать фон браузера полностью непрозрачным, отключив эффекты размытия.
 kiwi-transparency-disable =
     .label = Отключить прозрачность
+
+kiwi-player-header = Медиаплеер
+kiwi-player-settings-header = Мини-плеер
+kiwi-player-settings-description = Небольшой плавающий плеер, который показывает, что играет в любой вкладке: название, обложку, кнопки управления и перемотку. Работает с VK, YouTube Music, Spotify, SoundCloud и другими плеерами.
+kiwi-player-enabled =
+    .label = Показывать мини-плеер, когда играет музыка
+kiwi-player-corner-label = Расположение плеера:
+kiwi-player-corner-right =
+    .label = Снизу справа
+kiwi-player-corner-left =
+    .label = Снизу слева

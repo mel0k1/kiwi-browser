@@ -19,6 +19,8 @@ export default [
   "gZenVerticalTabsManager",
   "gKiwiSidebarPosition",
   "gKiwiTransparency",
+  "gKiwiMediaPlayer",
+  "gKiwiNewTabDoubleClick",
   "gZenStartup",
   "gZenMenubar",
 

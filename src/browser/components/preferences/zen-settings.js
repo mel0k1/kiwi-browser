@@ -1263,6 +1263,21 @@ Preferences.addAll([
     default: false,
   },
   {
+    id: "kiwi.player.enabled",
+    type: "bool",
+    default: true,
+  },
+  {
+    id: "kiwi.player.corner",
+    type: "string",
+    default: "right",
+  },
+  {
+    id: "kiwi.tabs.double-click-newtab",
+    type: "bool",
+    default: true,
+  },
+  {
     id: "zen.window-sync.sync-only-pinned-tabs",
     type: "bool",
     default: false,
