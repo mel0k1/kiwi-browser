@@ -86,6 +86,11 @@ jobs:
         run: |
           f=(dist/*.tar.xz)
           mv "${f[0]}" kiwi-linux-x86_64.tar.xz
+          cp dist/output.mar linux.mar
+          xml=$(find dist/update -name update.xml | head -1)
+          sed -i "s|/releases/download/${KIWI_VERSION}/|/releases/download/v${KIWI_VERSION}/|g" "$xml"
+          cp "$xml" update-linux.xml
+          ls -la linux.mar update-linux.xml
 
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
@@ -93,6 +98,15 @@ jobs:
           retention-days: 7
           name: kiwi-linux-x86_64
           path: kiwi-linux-x86_64.tar.xz
+
+      - name: Upload update files
+        uses: actions/upload-artifact@v4
+        with:
+          retention-days: 7
+          name: kiwi-linux-update
+          path: |
+            linux.mar
+            update-linux.xml
 
   build-windows:
     permissions:
@@ -179,6 +193,8 @@ jobs:
           npm run import -- --verbose
 
       - name: Rewrite branding URLs
+        env:
+          SURFER_PLATFORM: win32
         run: python3 scripts/kiwi_branding_urls.py
 
       - name: Bootstrap
@@ -239,6 +255,11 @@ jobs:
           test $(stat -c%s kiwi.installer.exe) -gt 50000000 || { echo "Installer too small"; exit 1; }
           test $(stat -c%s kiwi-win64.zip) -gt 50000000 || { echo "Zip too small"; exit 1; }
           ls -la kiwi.installer.exe kiwi-win64.zip
+          cp dist/output.mar windows.mar
+          xml=$(find dist/update -name update.xml | head -1)
+          sed -i "s|/releases/download/${KIWI_VERSION}/|/releases/download/v${KIWI_VERSION}/|g" "$xml"
+          cp "$xml" update.xml
+          ls -la windows.mar update.xml
 
       - name: Upload installer
         uses: actions/upload-artifact@v4
@@ -253,3 +274,12 @@ jobs:
           retention-days: 7
           name: kiwi-win64-zip
           path: kiwi-win64.zip
+
+      - name: Upload update files
+        uses: actions/upload-artifact@v4
+        with:
+          retention-days: 7
+          name: kiwi-win64-update
+          path: |
+            windows.mar
+            update.xml

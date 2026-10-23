@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+import os
 import re
 from pathlib import Path
 
@@ -23,11 +24,19 @@ NSIS = {
     "URLManualDownload": f"{REPO}/releases/latest",
 }
 
+AUS_URLS = {
+    "win32": f"{REPO}/releases/latest/download/update.xml",
+    "linux": f"{REPO}/releases/latest/download/update-linux.xml",
+}
+AUS_URL = AUS_URLS.get(os.environ.get("SURFER_PLATFORM", "linux"), AUS_URLS["linux"])
+
 prefs_path = BRANDING / "pref" / "firefox-branding.js"
 nsis_path = BRANDING / "branding.nsi"
+app_ini_path = Path("engine/build/application.ini.in")
 
-if not prefs_path.exists() or not nsis_path.exists():
-    raise SystemExit(f"branding files missing: {prefs_path}, {nsis_path}")
+for path in (prefs_path, nsis_path, app_ini_path):
+    if not path.exists():
+        raise SystemExit(f"branding file missing: {path}")
 
 text = prefs_path.read_text()
 for key, value in PREFS.items():
@@ -44,5 +53,11 @@ for key, value in NSIS.items():
     if n != 1:
         raise SystemExit(f"nsis: {key} replaced {n} times")
 nsis_path.write_text(text)
+
+text = app_ini_path.read_text()
+text, n = re.subn(r"(?m)^URL=.*update\.xml$", f"URL={AUS_URL}", text)
+if n != 1:
+    raise SystemExit(f"app update URL replaced {n} times")
+app_ini_path.write_text(text)
 
 print("branding URLs rewritten to Kiwi")
