@@ -337,6 +337,8 @@ kiwi-sidebar-position-top =
     .label = Сверху
 kiwi-sidebar-position-bottom =
     .label = Снизу
+kiwi-tabs-double-click-newtab =
+    .label = Открывать новую вкладку по двойному клику на пустом месте панели вкладок
 
 kiwi-transparency-header = Прозрачность
 kiwi-transparency-description = Сделать фон браузера полностью непрозрачным, отключив эффекты размытия.

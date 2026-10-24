@@ -78,6 +78,7 @@ window.gKiwiMediaPlayer = new (class KiwiMediaPlayer extends nsZenDOMOperatedFea
   }
 
   init() {
+    this.#syncSidebarButton();
     window.addEventListener("TabAttrModified", event => {
       const { changed } = event.detail;
       if (changed.includes("soundplaying")) {
@@ -115,6 +116,12 @@ window.gKiwiMediaPlayer = new (class KiwiMediaPlayer extends nsZenDOMOperatedFea
       this.#userClosedId = null;
       this.#widget?.setAttribute("hidden", "true");
     }
+    this.#syncSidebarButton();
+  }
+
+  #syncSidebarButton() {
+    const btn = document.getElementById("kiwi-player-toggle-button");
+    btn?.toggleAttribute("hidden", !this._enabled);
   }
 
   toggle() {

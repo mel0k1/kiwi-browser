@@ -119,6 +119,8 @@ kiwi-sidebar-position-top =
     .label = Top
 kiwi-sidebar-position-bottom =
     .label = Bottom
+kiwi-tabs-double-click-newtab =
+    .label = Open a new tab when double-clicking empty tab strip space
 
 kiwi-transparency-header = Transparency
 kiwi-transparency-description = Make the browser background fully opaque and disable blur effects.
