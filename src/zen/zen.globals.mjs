@@ -21,6 +21,7 @@ export default [
   "gKiwiTransparency",
   "gKiwiMediaPlayer",
   "gKiwiNewTabDoubleClick",
+  "gKiwiUpdateSnooze",
   "gZenStartup",
   "gZenMenubar",
 

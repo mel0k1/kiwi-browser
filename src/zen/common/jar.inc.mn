@@ -18,6 +18,7 @@
         content/browser/zen-components/KiwiTransparency.mjs                     (../../zen/common/modules/KiwiTransparency.mjs)
         content/browser/zen-components/KiwiMediaPlayer.mjs                      (../../zen/common/modules/KiwiMediaPlayer.mjs)
         content/browser/zen-components/KiwiNewTabDoubleClick.mjs                (../../zen/common/modules/KiwiNewTabDoubleClick.mjs)
+        content/browser/zen-components/KiwiUpdateSnooze.mjs                     (../../zen/common/modules/KiwiUpdateSnooze.mjs)
 
         content/browser/zen-components/ZenEmojisData.min.mjs                    (../../zen/common/emojis/ZenEmojisData.min.mjs)
         content/browser/zen-components/ZenEmojiPicker.mjs                       (../../zen/common/emojis/ZenEmojiPicker.mjs)

@@ -1,0 +1,66 @@
+diff --git a/toolkit/mozapps/update/UpdateListener.sys.mjs b/toolkit/mozapps/update/UpdateListener.sys.mjs
+index b689833..c15d3d1 100644
+--- a/toolkit/mozapps/update/UpdateListener.sys.mjs
++++ b/toolkit/mozapps/update/UpdateListener.sys.mjs
+@@ -217,6 +217,28 @@ export var UpdateListener = {
+     }
+   },
+ 
++  // Kiwi: hide update prompts when the user asked not to be disturbed.
++  kiwiUpdateSuppressed(update) {
++    try {
++      if (update?.appVersion) {
++        Services.prefs.setStringPref(
++          "kiwi.updates.offered-version",
++          update.appVersion
++        );
++      }
++      if (Services.prefs.getBoolPref("kiwi.updates.dnd", false)) {
++        return true;
++      }
++      let snoozed = Services.prefs.getStringPref(
++        "kiwi.updates.dnd-version",
++        ""
++      );
++      return !!snoozed && !!update?.appVersion && update.appVersion == snoozed;
++    } catch (e) {
++      return false;
++    }
++  },
++
+   showUpdateNotification(type, mainAction, mainActionDismiss, options = {}) {
+     const addTelemetry = metric => {
+       // No telemetry for the "downloading" state.
+@@ -258,6 +280,10 @@ export var UpdateListener = {
+   },
+ 
+   showRestartNotification(update, dismissed) {
++    if (this.kiwiUpdateSuppressed(update)) {
++      return;
++    }
++
+     let notification = "restart";
+     if (lazy.AppUpdateService.isOtherInstanceHandlingUpdates) {
+       notification = "other-instance";
+@@ -277,6 +303,10 @@ export var UpdateListener = {
+   },
+ 
+   showUpdateAvailableNotification(update, dismissed) {
++    if (this.kiwiUpdateSuppressed(update)) {
++      return;
++    }
++
+     let learnMoreURL = this.getReleaseNotesUrl(update);
+     this.showUpdateNotification(
+       "available",
+@@ -289,6 +319,10 @@ export var UpdateListener = {
+   },
+ 
+   showManualUpdateNotification(update, dismissed) {
++    if (this.kiwiUpdateSuppressed(update)) {
++      return;
++    }
++
+     let learnMoreURL = this.getReleaseNotesUrl(update);
+     this.showUpdateNotification(
+       "manual",

@@ -199,3 +199,13 @@
     transition: none;
   }
 }
+
+#kiwi-player-toggle-button {
+  list-style-image: url("chrome://browser/skin/zen-icons/kiwi-player.svg");
+  -moz-context-properties: fill, fill-opacity;
+  fill: currentColor;
+}
+
+.kiwi-update-dnd {
+  margin-top: 6px;
+}

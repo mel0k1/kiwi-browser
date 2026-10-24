@@ -21,6 +21,7 @@
     "chrome://browser/content/zen-components/KiwiTransparency.mjs",
     "chrome://browser/content/zen-components/KiwiMediaPlayer.mjs",
     "chrome://browser/content/zen-components/KiwiNewTabDoubleClick.mjs",
+    "chrome://browser/content/zen-components/KiwiUpdateSnooze.mjs",
     "resource:///modules/zen/ZenVerticalTabsManager.mjs",
     "chrome://browser/content/zen-components/ZenMods.mjs",
     "chrome://browser/content/zen-components/ZenKeyboardShortcuts.mjs",
