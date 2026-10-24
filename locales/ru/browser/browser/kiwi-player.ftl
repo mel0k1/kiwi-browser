@@ -14,3 +14,7 @@ kiwi-player-focus-tab =
   .aria-label = Перейти к играющей вкладке
 kiwi-player-close =
   .aria-label = Закрыть плеер
+kiwi-player-toggle =
+  .label = Медиаплеер
+  .tooltiptext = Открыть или скрыть мини-плеер
+kiwi-player-empty = Сейчас ничего не играет

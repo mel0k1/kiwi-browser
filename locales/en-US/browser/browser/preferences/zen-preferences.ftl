@@ -403,3 +403,5 @@ kiwi-player-corner-right =
     .label = Bottom right
 kiwi-player-corner-left =
     .label = Bottom left
+kiwi-flash-track-change =
+    .label = Flash the taskbar icon when the track changes (Windows)

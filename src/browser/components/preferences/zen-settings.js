@@ -1273,6 +1273,11 @@ Preferences.addAll([
     default: "right",
   },
   {
+    id: "kiwi.attention.flash-track-change",
+    type: "bool",
+    default: true,
+  },
+  {
     id: "kiwi.tabs.double-click-newtab",
     type: "bool",
     default: true,

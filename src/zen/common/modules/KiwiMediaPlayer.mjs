@@ -6,8 +6,13 @@ import {
   nsZenDOMOperatedFeature,
 } from "chrome://browser/content/zen-components/ZenCommonUtils.mjs";
 
+const { AppConstants } = ChromeUtils.importESModule(
+  "resource://gre/modules/AppConstants.sys.mjs"
+);
+
 const kEnabledPref = "kiwi.player.enabled";
 const kCornerPref = "kiwi.player.corner";
+const kFlashPref = "kiwi.attention.flash-track-change";
 const kZenMediaBarPref = "zen.mediacontrols.enabled";
 
 const ICONS = {
@@ -35,10 +40,13 @@ function formatTime(seconds) {
 
 window.gKiwiMediaPlayer = new (class KiwiMediaPlayer extends nsZenDOMOperatedFeature {
   #widget = null;
+  #lastMeta = undefined;
   #current = null;
   #listeners = null;
   #interval = null;
   #showTimeout = null;
+  #userClosedId = null;
+  #emptyMode = false;
 
   constructor() {
     super();
@@ -104,8 +112,111 @@ window.gKiwiMediaPlayer = new (class KiwiMediaPlayer extends nsZenDOMOperatedFea
       }
     } else {
       this.#detach();
+      this.#userClosedId = null;
       this.#widget?.setAttribute("hidden", "true");
     }
+  }
+
+  toggle() {
+    if (!Services.prefs.getBoolPref(kEnabledPref, true)) {
+      Services.prefs.setBoolPref(kEnabledPref, true);
+    }
+    this.#ensureWidget();
+    if (!this.#widget) {
+      return;
+    }
+    if (!this.#widget.hidden) {
+      this.#userClosedId = this.#current?.controller?.id || null;
+      this.#widget.setAttribute("hidden", "true");
+      return;
+    }
+    this.#userClosedId = null;
+    if (this.#current?.controller) {
+      this.#widget.removeAttribute("hidden");
+      return;
+    }
+    let found = null;
+    for (const tab of window.gBrowser.tabs) {
+      const controller = tab.linkedBrowser.browsingContext?.mediaController;
+      if (controller?.isActive) {
+        found = { browser: tab.linkedBrowser, controller };
+        if (controller.isPlaying) {
+          break;
+        }
+      }
+    }
+    if (found) {
+      this.#attach(found.browser, found.controller);
+      this.#widget.removeAttribute("hidden");
+      return;
+    }
+    this.#showEmpty();
+  }
+
+  #maybeShow(controller) {
+    if (!controller?.isPlaying) {
+      return;
+    }
+    if (this.#userClosedId === controller.id) {
+      return;
+    }
+    this.#widget?.removeAttribute("hidden");
+  }
+
+  #showEmpty() {
+    this.#ensureWidget();
+    if (!this.#widget) {
+      return;
+    }
+    this.#emptyMode = true;
+    this.#setControlsEnabled(false);
+    this._artistEl.hidden = true;
+    this._titleEl.textContent = "";
+    document.l10n.setAttributes(this._titleEl, "kiwi-player-empty");
+    this.#widget.classList.remove("playing");
+    this._playBtnEl.querySelector("path").setAttribute("d", ICONS.play);
+    this._curEl.textContent = "0:00";
+    this._durEl.textContent = "0:00";
+    this._seekEl.value = 0;
+    this._artEl.removeAttribute("src");
+    this.#widget.removeAttribute("hidden");
+  }
+
+  #exitEmptyMode() {
+    if (!this.#emptyMode) {
+      return;
+    }
+    this.#emptyMode = false;
+    this._titleEl.removeAttribute("data-l10n-id");
+    this.#setControlsEnabled(true);
+  }
+
+  #setControlsEnabled(enabled) {
+    for (const el of [
+      this._prevBtnEl,
+      this._playBtnEl,
+      this._nextBtnEl,
+      this._muteBtnEl,
+      this._tabBtnEl,
+      this._seekEl,
+    ]) {
+      el.disabled = !enabled;
+    }
+  }
+
+  #maybeFlash() {
+    if (!Services.prefs.getBoolPref(kFlashPref, true)) {
+      return;
+    }
+    if (AppConstants.platform !== "win") {
+      return;
+    }
+    try {
+      if (Services.focus.activeWindow === window) {
+        return;
+      }
+      window.getAttention();
+    } catch (e) {}
   }
 
   #applyCorner() {
@@ -160,6 +271,7 @@ window.gKiwiMediaPlayer = new (class KiwiMediaPlayer extends nsZenDOMOperatedFea
       return;
     }
     if (this.#current?.controller?.id === controller.id) {
+      this.#maybeShow(controller);
       return;
     }
     if (this.#showTimeout) {
@@ -167,18 +279,23 @@ window.gKiwiMediaPlayer = new (class KiwiMediaPlayer extends nsZenDOMOperatedFea
     }
     this.#showTimeout = setTimeout(() => {
       this.#showTimeout = null;
-      if (!controller.isPlaying) {
+      if (!controller.isActive) {
         return;
       }
       this.#attach(browser, controller);
-      this.#widget?.removeAttribute("hidden");
-    }, 800);
+      this.#maybeShow(controller);
+    }, 500);
   }
 
   #attach(browser, controller) {
     this.#detach();
     this.#current = { browser, controller };
+    if (this.#userClosedId && this.#userClosedId !== controller.id) {
+      this.#userClosedId = null;
+    }
+    this.#exitEmptyMode();
     this.#ensureWidget();
+    this.#setControlsEnabled(true);
     this.#listeners = {
       positionstatechange: () => this.#updatePosition(),
       playbackstatechange: () => this.#updatePlayback(),
@@ -186,6 +303,7 @@ window.gKiwiMediaPlayer = new (class KiwiMediaPlayer extends nsZenDOMOperatedFea
       supportedkeyschange: () => this.#updateButtons(),
       deactivated: () => {
         this.#detach();
+        this.#userClosedId = null;
         this.#widget?.setAttribute("hidden", "true");
       },
     };
@@ -200,6 +318,11 @@ window.gKiwiMediaPlayer = new (class KiwiMediaPlayer extends nsZenDOMOperatedFea
   }
 
   #detach() {
+    if (this.#showTimeout) {
+      clearTimeout(this.#showTimeout);
+      this.#showTimeout = null;
+    }
+    this.#lastMeta = undefined;
     if (this.#interval) {
       clearInterval(this.#interval);
       this.#interval = null;
@@ -351,7 +474,7 @@ window.gKiwiMediaPlayer = new (class KiwiMediaPlayer extends nsZenDOMOperatedFea
       controller?.focus();
     });
     closeBtn.addEventListener("click", () => {
-      this.#detach();
+      this.#userClosedId = this.#current?.controller?.id || null;
       widget.setAttribute("hidden", "true");
     });
   }
@@ -382,6 +505,11 @@ window.gKiwiMediaPlayer = new (class KiwiMediaPlayer extends nsZenDOMOperatedFea
     }
     this._artEl.classList.remove("kiwi-player-art-fallback");
     this._artEl.src = artwork;
+    const meta = `${title}\n${artist}`;
+    if (this.#lastMeta !== undefined && meta !== this.#lastMeta) {
+      this.#maybeFlash();
+    }
+    this.#lastMeta = meta;
   }
 
   #updatePlayback() {

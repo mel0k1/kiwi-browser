@@ -14,3 +14,7 @@ kiwi-player-focus-tab =
   .aria-label = Switch to the playing tab
 kiwi-player-close =
   .aria-label = Close the player
+kiwi-player-toggle =
+  .label = Media player
+  .tooltiptext = Open or hide the mini player
+kiwi-player-empty = Nothing is playing right now

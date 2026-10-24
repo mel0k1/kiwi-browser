@@ -4,6 +4,8 @@
   value: true
 - name: kiwi.player.corner
   value: right
+- name: kiwi.attention.flash-track-change
+  value: true
 - name: kiwi.tabs.double-click-newtab
   value: true
 - name: browser.newtabpage.activityStream.showSponsored

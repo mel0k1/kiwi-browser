@@ -353,3 +353,5 @@ kiwi-player-corner-right =
     .label = Снизу справа
 kiwi-player-corner-left =
     .label = Снизу слева
+kiwi-flash-track-change =
+    .label = Мигать иконкой на панели задач при смене трека (Windows)
