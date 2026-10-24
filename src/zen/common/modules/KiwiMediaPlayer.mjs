@@ -6,13 +6,8 @@ import {
   nsZenDOMOperatedFeature,
 } from "chrome://browser/content/zen-components/ZenCommonUtils.mjs";
 
-const { AppConstants } = ChromeUtils.importESModule(
-  "resource://gre/modules/AppConstants.sys.mjs"
-);
-
 const kEnabledPref = "kiwi.player.enabled";
 const kCornerPref = "kiwi.player.corner";
-const kFlashPref = "kiwi.attention.flash-track-change";
 const kZenMediaBarPref = "zen.mediacontrols.enabled";
 
 const ICONS = {
@@ -40,7 +35,6 @@ function formatTime(seconds) {
 
 window.gKiwiMediaPlayer = new (class KiwiMediaPlayer extends nsZenDOMOperatedFeature {
   #widget = null;
-  #lastMeta = undefined;
   #current = null;
   #listeners = null;
   #interval = null;
@@ -211,21 +205,6 @@ window.gKiwiMediaPlayer = new (class KiwiMediaPlayer extends nsZenDOMOperatedFea
     }
   }
 
-  #maybeFlash() {
-    if (!Services.prefs.getBoolPref(kFlashPref, true)) {
-      return;
-    }
-    if (AppConstants.platform !== "win") {
-      return;
-    }
-    try {
-      if (Services.focus.activeWindow === window) {
-        return;
-      }
-      window.getAttention();
-    } catch (e) {}
-  }
-
   #applyCorner() {
     if (!this.#widget) {
       return;
@@ -329,7 +308,6 @@ window.gKiwiMediaPlayer = new (class KiwiMediaPlayer extends nsZenDOMOperatedFea
       clearTimeout(this.#showTimeout);
       this.#showTimeout = null;
     }
-    this.#lastMeta = undefined;
     if (this.#interval) {
       clearInterval(this.#interval);
       this.#interval = null;
@@ -348,7 +326,10 @@ window.gKiwiMediaPlayer = new (class KiwiMediaPlayer extends nsZenDOMOperatedFea
       return;
     }
     window.MozXULElement.insertFTLIfNeeded("browser/kiwi-player.ftl");
-    const host = document.getElementById("appcontent");
+    const host =
+      document.getElementById("zen-appcontent-wrapper") ||
+      document.getElementById("browser") ||
+      document.documentElement;
     if (!host) {
       return;
     }
@@ -512,11 +493,6 @@ window.gKiwiMediaPlayer = new (class KiwiMediaPlayer extends nsZenDOMOperatedFea
     }
     this._artEl.classList.remove("kiwi-player-art-fallback");
     this._artEl.src = artwork;
-    const meta = `${title}\n${artist}`;
-    if (this.#lastMeta !== undefined && meta !== this.#lastMeta) {
-      this.#maybeFlash();
-    }
-    this.#lastMeta = meta;
   }
 
   #updatePlayback() {
