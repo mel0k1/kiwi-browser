@@ -1,0 +1,17 @@
+diff --git a/toolkit/mozapps/update/UpdateService.sys.mjs b/toolkit/mozapps/update/UpdateService.sys.mjs
+index 164381e..9be7519 100644
+--- a/toolkit/mozapps/update/UpdateService.sys.mjs
++++ b/toolkit/mozapps/update/UpdateService.sys.mjs
+@@ -1957,10 +1957,8 @@ function updateIsAtLeastAsOldAs(update, version, buildID) {
+     return false;
+   }
+   let versionComparison = Services.vc.compare(update.appVersion, version);
+-  return (
+-    versionComparison < 0 ||
+-    (versionComparison == 0 && update.buildID == buildID)
+-  );
++  // Kiwi: same-version updates are never offered, regardless of build ID.
++  return versionComparison <= 0;
+ }
+ 
+ /**
