@@ -4,7 +4,7 @@
   value: true
 - name: kiwi.player.corner
   value: right
-- name: kiwi.attention.flash-track-change
+- name: kiwi.notifications.flash
   value: true
 - name: kiwi.tabs.double-click-newtab
   value: true

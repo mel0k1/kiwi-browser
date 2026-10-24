@@ -20,6 +20,7 @@
     "chrome://browser/content/zen-components/KiwiSidebarPosition.mjs",
     "chrome://browser/content/zen-components/KiwiTransparency.mjs",
     "chrome://browser/content/zen-components/KiwiMediaPlayer.mjs",
+    "chrome://browser/content/zen-components/KiwiNotifications.mjs",
     "chrome://browser/content/zen-components/KiwiNewTabDoubleClick.mjs",
     "chrome://browser/content/zen-components/KiwiUpdateSnooze.mjs",
     "resource:///modules/zen/ZenVerticalTabsManager.mjs",

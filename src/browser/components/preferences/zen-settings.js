@@ -1273,7 +1273,7 @@ Preferences.addAll([
     default: "right",
   },
   {
-    id: "kiwi.attention.flash-track-change",
+    id: "kiwi.notifications.flash",
     type: "bool",
     default: true,
   },
@@ -1293,3 +1293,37 @@ Preferences.addSetting({
   id: "zenWorkspaceContinueWhereLeftOff",
   pref: "zen.workspaces.continue-where-left-off",
 });
+
+{
+  const kDndUntilPref = "kiwi.dnd.until";
+  const dndRow = document.getElementById("kiwiDndRow");
+  const dndStatus = document.getElementById("kiwiDndStatus");
+  const dndDisable = document.getElementById("kiwiDndDisable");
+
+  const syncDnd = () => {
+    const until = Services.prefs.getIntPref(kDndUntilPref, 0);
+    const forever = until === -1;
+    const active = forever || until * 1000 > Date.now();
+    dndRow.toggleAttribute("hidden", !active);
+    if (!active) {
+      return;
+    }
+    if (forever) {
+      document.l10n.setAttributes(dndStatus, "kiwi-dnd-status-forever");
+      return;
+    }
+    const days = Math.max(
+      1,
+      Math.ceil((until - Date.now() / 1000) / 86400)
+    );
+    document.l10n.setAttributes(dndStatus, "kiwi-dnd-status-active", {
+      days,
+    });
+  };
+
+  dndDisable?.addEventListener("command", () => {
+    Services.prefs.setIntPref(kDndUntilPref, 0);
+  });
+  Services.prefs.addObserver(kDndUntilPref, syncDnd);
+  syncDnd();
+}

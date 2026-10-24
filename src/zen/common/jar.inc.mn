@@ -17,6 +17,7 @@
         content/browser/zen-components/KiwiSidebarPosition.mjs                  (../../zen/common/modules/KiwiSidebarPosition.mjs)
         content/browser/zen-components/KiwiTransparency.mjs                     (../../zen/common/modules/KiwiTransparency.mjs)
         content/browser/zen-components/KiwiMediaPlayer.mjs                      (../../zen/common/modules/KiwiMediaPlayer.mjs)
+        content/browser/zen-components/KiwiNotifications.mjs                    (../../zen/common/modules/KiwiNotifications.mjs)
         content/browser/zen-components/KiwiNewTabDoubleClick.mjs                (../../zen/common/modules/KiwiNewTabDoubleClick.mjs)
         content/browser/zen-components/KiwiUpdateSnooze.mjs                     (../../zen/common/modules/KiwiUpdateSnooze.mjs)
 

@@ -355,5 +355,11 @@ kiwi-player-corner-right =
     .label = Снизу справа
 kiwi-player-corner-left =
     .label = Снизу слева
-kiwi-flash-track-change =
-    .label = Мигать иконкой на панели задач при смене трека (Windows)
+kiwi-flash-notifications =
+    .label = Мигать иконкой на панели задач при уведомлениях сайтов (Windows)
+kiwi-dnd-status-active =
+    Уведомления не беспокоят ещё { $days } дн.
+kiwi-dnd-status-forever =
+    Уведомления отключены, пока вы их не включите
+kiwi-dnd-disable =
+    .label = Включить уведомления

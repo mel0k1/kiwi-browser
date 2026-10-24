@@ -405,5 +405,11 @@ kiwi-player-corner-right =
     .label = Bottom right
 kiwi-player-corner-left =
     .label = Bottom left
-kiwi-flash-track-change =
-    .label = Flash the taskbar icon when the track changes (Windows)
+kiwi-flash-notifications =
+    .label = Flash the taskbar icon for website notifications (Windows)
+kiwi-dnd-status-active =
+    Notifications are muted for another { $days } day(s)
+kiwi-dnd-status-forever =
+    Notifications are muted until you turn them back on
+kiwi-dnd-disable =
+    .label = Turn notifications back on

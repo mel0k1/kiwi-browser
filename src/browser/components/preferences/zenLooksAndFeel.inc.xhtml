@@ -105,9 +105,14 @@
                         </menupopup>
                   </menulist>
             </hbox>
-            <checkbox id="kiwiFlashTrackChange"
-                  data-l10n-id="kiwi-flash-track-change"
-                  preference="kiwi.attention.flash-track-change"/>
+            <checkbox id="kiwiFlashNotifications"
+                  data-l10n-id="kiwi-flash-notifications"
+                  preference="kiwi.notifications.flash"/>
+            <hbox id="kiwiDndRow" align="center" hidden="true">
+                  <description id="kiwiDndStatus" flex="1" />
+                  <button id="kiwiDndDisable"
+                        data-l10n-id="kiwi-dnd-disable"/>
+            </hbox>
       </vbox>
 </groupbox>
 

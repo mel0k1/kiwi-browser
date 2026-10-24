@@ -20,6 +20,7 @@ export default [
   "gKiwiSidebarPosition",
   "gKiwiTransparency",
   "gKiwiMediaPlayer",
+  "gKiwiNotifications",
   "gKiwiNewTabDoubleClick",
   "gKiwiUpdateSnooze",
   "gZenStartup",
