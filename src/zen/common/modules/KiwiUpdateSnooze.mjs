@@ -6,27 +6,34 @@ import {
   nsZenDOMOperatedFeature,
 } from "chrome://browser/content/zen-components/ZenCommonUtils.mjs";
 
-const kDndPref = "kiwi.updates.dnd";
-const kSnoozePref = "kiwi.updates.dnd-version";
-const kOfferedPref = "kiwi.updates.offered-version";
+const kDndUntilPref = "kiwi.dnd.until";
+
+function kiwiDndActive() {
+  try {
+    const until = Services.prefs.getIntPref(kDndUntilPref, 0);
+    return until === -1 || until * 1000 > Date.now();
+  } catch (e) {
+    return false;
+  }
+}
 
 window.gKiwiUpdateSnooze = new (class KiwiUpdateSnooze extends nsZenDOMOperatedFeature {
   init() {
     window.MozXULElement.insertFTLIfNeeded("browser/kiwi-updates.ftl");
     XPCOMUtils.defineLazyPreferenceGetter(
       this,
-      "_dnd",
-      kDndPref,
-      false,
+      "_dndUntil",
+      kDndUntilPref,
+      0,
       () => this._onDndChange()
     );
-    if (this._dnd) {
+    if (kiwiDndActive()) {
       this._removeUpdateNotifications();
     }
   }
 
   _onDndChange() {
-    if (this._dnd) {
+    if (kiwiDndActive()) {
       this._removeUpdateNotifications();
     }
   }
@@ -40,12 +47,10 @@ window.gKiwiUpdateSnooze = new (class KiwiUpdateSnooze extends nsZenDOMOperatedF
     } catch (e) {}
   }
 
-  snooze() {
-    let version = Services.prefs.getStringPref(kOfferedPref, "");
-    if (!version) {
-      version = Services.appinfo.version;
-    }
-    Services.prefs.setStringPref(kSnoozePref, version);
+  snooze(days) {
+    const d = Number.isFinite(days) ? days : 7;
+    const until = d < 0 ? -1 : Math.floor(Date.now() / 1000) + d * 86400;
+    Services.prefs.setIntPref(kDndUntilPref, until);
     this._removeUpdateNotifications();
     try {
       window.PanelUI.notificationPanel.hidePopup();

@@ -3,4 +3,12 @@
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 kiwi-update-dontdisturb =
-    .label = Не беспокоить для этой версии
+    .label = Не беспокоить
+kiwi-update-dnd-1d =
+    .label = На 1 день
+kiwi-update-dnd-3d =
+    .label = На 3 дня
+kiwi-update-dnd-7d =
+    .label = На 7 дней
+kiwi-update-dnd-forever =
+    .label = Пока сам не включу

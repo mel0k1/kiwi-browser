@@ -1,26 +1,38 @@
-diff --git a/browser/components/customizableui/content/panelUI.inc.xhtml b/browser/components/customizableui/content/panelUI.inc.xhtml
-index 304404a..ec70f15 100644
 --- a/browser/components/customizableui/content/panelUI.inc.xhtml
 +++ b/browser/components/customizableui/content/panelUI.inc.xhtml
-@@ -158,6 +158,10 @@
+@@ -158,6 +158,17 @@
                         hidden="true">
        <popupnotificationcontent id="update-available-notification-content" orient="vertical">
          <description id="update-available-description" data-lazy-l10n-id="appmenu-update-available-message2"></description>
 +        <button id="update-available-dnd-button"
 +                class="panel-button kiwi-update-dnd"
-+                data-l10n-id="kiwi-update-dontdisturb"
-+                oncommand="window.gKiwiUpdateSnooze?.snooze();"/>
++                type="menu"
++                data-l10n-id="kiwi-update-dontdisturb">
++          <menupopup position="after_start">
++            <menuitem data-l10n-id="kiwi-update-dnd-1d" oncommand="window.gKiwiUpdateSnooze?.snooze(1);"/>
++            <menuitem data-l10n-id="kiwi-update-dnd-3d" oncommand="window.gKiwiUpdateSnooze?.snooze(3);"/>
++            <menuitem data-l10n-id="kiwi-update-dnd-7d" oncommand="window.gKiwiUpdateSnooze?.snooze(7);"/>
++            <menuitem data-l10n-id="kiwi-update-dnd-forever" oncommand="window.gKiwiUpdateSnooze?.snooze(-1);"/>
++          </menupopup>
++        </button>
        </popupnotificationcontent>
      </popupnotification>
  
-@@ -173,6 +177,10 @@
+@@ -173,6 +184,17 @@
                         hidden="true">
        <popupnotificationcontent id="update-manual-notification-content" orient="vertical">
          <description id="update-manual-description" data-lazy-l10n-id="appmenu-update-manual-message2"></description>
 +        <button id="update-manual-dnd-button"
 +                class="panel-button kiwi-update-dnd"
-+                data-l10n-id="kiwi-update-dontdisturb"
-+                oncommand="window.gKiwiUpdateSnooze?.snooze();"/>
++                type="menu"
++                data-l10n-id="kiwi-update-dontdisturb">
++          <menupopup position="after_start">
++            <menuitem data-l10n-id="kiwi-update-dnd-1d" oncommand="window.gKiwiUpdateSnooze?.snooze(1);"/>
++            <menuitem data-l10n-id="kiwi-update-dnd-3d" oncommand="window.gKiwiUpdateSnooze?.snooze(3);"/>
++            <menuitem data-l10n-id="kiwi-update-dnd-7d" oncommand="window.gKiwiUpdateSnooze?.snooze(7);"/>
++            <menuitem data-l10n-id="kiwi-update-dnd-forever" oncommand="window.gKiwiUpdateSnooze?.snooze(-1);"/>
++          </menupopup>
++        </button>
        </popupnotificationcontent>
      </popupnotification>
  

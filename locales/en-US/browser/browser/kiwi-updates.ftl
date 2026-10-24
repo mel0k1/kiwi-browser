@@ -3,4 +3,12 @@
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 kiwi-update-dontdisturb =
-    .label = Don't disturb for this version
+    .label = Do not disturb
+kiwi-update-dnd-1d =
+    .label = For 1 day
+kiwi-update-dnd-3d =
+    .label = For 3 days
+kiwi-update-dnd-7d =
+    .label = For 7 days
+kiwi-update-dnd-forever =
+    .label = Until I turn it back on

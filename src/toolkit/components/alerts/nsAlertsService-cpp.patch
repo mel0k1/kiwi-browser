@@ -1,0 +1,51 @@
+--- a/toolkit/components/alerts/nsAlertsService.cpp
++++ b/toolkit/components/alerts/nsAlertsService.cpp
+@@ -9,11 +9,13 @@
+ #include "xpcpublic.h"
+ #include "mozilla/AppShutdown.h"
+ #include "mozilla/ClearOnShutdown.h"
++#include "mozilla/Preferences.h"
+ #include "mozilla/Services.h"
+ #include "mozilla/StaticPrefs_alerts.h"
+ #include "mozilla/StaticPrefs_browser.h"
+ #include "nsServiceManagerUtils.h"
+ #include "nsXULAlerts.h"
++#include "prtime.h"
+ 
+ #include "nsAlertsService.h"
+ 
+@@ -136,6 +138,16 @@
+   return !principal->GetIsInPrivateBrowsing();
+ }
+ 
++
++// Kiwi: the do-not-disturb timer for web notifications, in unix seconds.
++// 0 means off, -1 means forever.
++bool KiwiDndActive() {
++  int32_t until = Preferences::GetInt("kiwi.dnd.until", 0);
++  if (until == -1) {
++    return true;
++  }
++  return until > 0 && until > static_cast<int32_t>(PR_Now() / PR_USEC_PER_SEC);
++}
+ }  // namespace
+ 
+ NS_IMPL_ISUPPORTS(nsAlertsService, nsIAlertsService, nsIAlertsDoNotDisturb,
+@@ -258,6 +270,17 @@
+   if (AppShutdown::IsInOrBeyond(ShutdownPhase::AppShutdownConfirmed)) {
+     // Bailing out without calling alertfinished, because we do not want to
+     // propagate an error to observers during shutdown.
++    return NS_OK;
++  }
++
++
++  // Kiwi: hide web content alerts while do-not-disturb is active.
++  bool kiwiWebAlert = false;
++  if (NS_SUCCEEDED(aAlert->GetActionable(&kiwiWebAlert)) && kiwiWebAlert &&
++      KiwiDndActive()) {
++    if (aAlertCallbacks) {
++      aAlertCallbacks->OnAlertFinished();
++    }
+     return NS_OK;
+   }
+ 
