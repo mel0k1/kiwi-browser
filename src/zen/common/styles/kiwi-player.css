@@ -206,6 +206,17 @@
   fill: currentColor;
 }
 
+#kiwi-dnd-button {
+  list-style-image: url("chrome://browser/skin/zen-icons/kiwi-dnd.svg");
+  -moz-context-properties: fill, fill-opacity;
+  fill: var(--zen-colors-secondary-text, currentColor);
+}
+
+#kiwi-dnd-button .toolbarbutton-icon {
+  width: 16px;
+  height: 16px;
+}
+
 .kiwi-update-dnd {
   margin-top: 6px;
 }
