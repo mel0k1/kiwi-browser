@@ -23,6 +23,7 @@
     "chrome://browser/content/zen-components/KiwiNotifications.mjs",
     "chrome://browser/content/zen-components/KiwiNewTabDoubleClick.mjs",
     "chrome://browser/content/zen-components/KiwiUpdateSnooze.mjs",
+    "chrome://browser/content/zen-components/KiwiWebPanels.mjs",
     "resource:///modules/zen/ZenVerticalTabsManager.mjs",
     "chrome://browser/content/zen-components/ZenMods.mjs",
     "chrome://browser/content/zen-components/ZenKeyboardShortcuts.mjs",

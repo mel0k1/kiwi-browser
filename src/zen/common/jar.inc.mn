@@ -20,6 +20,7 @@
         content/browser/zen-components/KiwiNotifications.mjs                    (../../zen/common/modules/KiwiNotifications.mjs)
         content/browser/zen-components/KiwiNewTabDoubleClick.mjs                (../../zen/common/modules/KiwiNewTabDoubleClick.mjs)
         content/browser/zen-components/KiwiUpdateSnooze.mjs                     (../../zen/common/modules/KiwiUpdateSnooze.mjs)
+        content/browser/zen-components/KiwiWebPanels.mjs                        (../../zen/common/modules/KiwiWebPanels.mjs)
 
         content/browser/zen-components/ZenEmojisData.min.mjs                    (../../zen/common/emojis/ZenEmojisData.min.mjs)
         content/browser/zen-components/ZenEmojiPicker.mjs                       (../../zen/common/emojis/ZenEmojiPicker.mjs)
@@ -40,6 +41,7 @@
         content/browser/zen-styles/kiwi-sidebar-position.css                    (../../zen/common/styles/kiwi-sidebar-position.css)
         content/browser/zen-styles/kiwi-transparency.css                        (../../zen/common/styles/kiwi-transparency.css)
         content/browser/zen-styles/kiwi-player.css                              (../../zen/common/styles/kiwi-player.css)
+        content/browser/zen-styles/kiwi-webpanels.css                           (../../zen/common/styles/kiwi-webpanels.css)
 *       content/browser/zen-styles/zen-backdrop-filters.svg                     (../../zen/common/styles/zen-backdrop-filters.svg)
 
         content/browser/zen-styles/zen-panels/bookmarks.css                     (../../zen/common/styles/zen-panels/bookmarks.css)

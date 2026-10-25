@@ -23,6 +23,7 @@ export default [
   "gKiwiNotifications",
   "gKiwiNewTabDoubleClick",
   "gKiwiUpdateSnooze",
+  "gKiwiWebPanels",
   "gZenStartup",
   "gZenMenubar",
 
