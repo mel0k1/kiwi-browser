@@ -18,6 +18,8 @@ const ICONS = {
   muted: "M3.63 3.63L2.22 5.04 7.29 10H4v4h3l5 5v-6.59l4.18 4.18c-.65.49-1.38.88-2.18 1.11v2.06a8.9 8.9 0 0 0 3.61-1.75l2.05 2.05 1.41-1.41L3.63 3.63zM19 12c0 .82-.15 1.61-.41 2.34l1.53 1.53A8.9 8.9 0 0 0 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zm-5-5.88v3.05l4.48 4.48A5 5 0 0 0 14 6.12z",
   unmuted: "M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 7.97v8.05A4.5 4.5 0 0 0 16.5 12zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z",
   tab: "M17 7h-4v1.5h4V7zm0 3h-4v1.5h4V10zm0 3h-4v1.5h4V13zM3 5.5A1.5 1.5 0 0 1 4.5 4H9l2 2h8.5A1.5 1.5 0 0 1 21 7.5v11a1.5 1.5 0 0 1-1.5 1.5h-15A1.5 1.5 0 0 1 3 18.5v-13z",
+  list: "M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z",
+  volLow: "M5 9v6h4l5 5V4L7 9H5zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z",
   close: "M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z",
   note: "M12 3v10.55A4 4 0 1 0 14 17V7h4V3h-6z",
 };
@@ -41,6 +43,7 @@ window.gKiwiMediaPlayer = new (class KiwiMediaPlayer extends nsZenDOMOperatedFea
   #showTimeout = null;
   #userClosedId = null;
   #emptyMode = false;
+  #volumes = new WeakMap();
 
   constructor() {
     super();
@@ -79,6 +82,9 @@ window.gKiwiMediaPlayer = new (class KiwiMediaPlayer extends nsZenDOMOperatedFea
         this.#evaluate(event.target.hasAttribute("soundplaying")
           ? event.target.linkedBrowser
           : null);
+        if (this._listEl && !this._listEl.hidden) {
+          this.#rebuildList();
+        }
       } else if (changed.includes("muted")) {
         this.#updateMuteIcon();
       }
@@ -198,10 +204,118 @@ window.gKiwiMediaPlayer = new (class KiwiMediaPlayer extends nsZenDOMOperatedFea
       this._playBtnEl,
       this._nextBtnEl,
       this._muteBtnEl,
+      this._volEl,
+      this._listBtnEl,
       this._tabBtnEl,
       this._seekEl,
     ]) {
       el.disabled = !enabled;
+    }
+  }
+
+  #volumeFor(browser) {
+    return this.#volumes.get(browser) ?? 1;
+  }
+
+  #sendVolume(browser, value) {
+    const root = browser?.browsingContext;
+    if (!root) {
+      return;
+    }
+    const contexts = new Set([root, ...root.getAllBrowsingContextsInSubtree()]);
+    for (const context of contexts) {
+      try {
+        context.currentWindowGlobal
+          ?.getActor("KiwiVolume")
+          ?.sendAsyncMessage("kiwi:volume", { value });
+      } catch (e) {}
+    }
+  }
+
+  #applyVolume(browser, value) {
+    const vol = Math.min(1, Math.max(0, value));
+    this.#volumes.set(browser, vol);
+    if (this._volEl) {
+      this._volEl.value = Math.round(vol * 100);
+    }
+    this.#sendVolume(browser, vol);
+    this.#updateMuteIcon();
+  }
+
+  #playingTabs() {
+    return window.gBrowser.tabs.filter(
+      tab =>
+        tab.hasAttribute("soundplaying") ||
+        tab.linkedBrowser?.browsingContext?.mediaController?.isActive
+    );
+  }
+
+  #toggleList() {
+    if (!this._listEl) {
+      return;
+    }
+    if (this._listEl.hidden) {
+      this.#rebuildList();
+      this._listEl.removeAttribute("hidden");
+    } else {
+      this._listEl.setAttribute("hidden", "true");
+    }
+  }
+
+  #rebuildList() {
+    const list = this._listEl;
+    if (!list) {
+      return;
+    }
+    list.replaceChildren();
+    const tabs = this.#playingTabs();
+    if (!tabs.length) {
+      const empty = document.createElementNS(
+        "http://www.w3.org/1999/xhtml",
+        "div"
+      );
+      empty.className = "kiwi-player-list-empty";
+      document.l10n.setAttributes(empty, "kiwi-player-list-empty");
+      list.appendChild(empty);
+      return;
+    }
+    for (const tab of tabs) {
+      const browser = tab.linkedBrowser;
+      const row = document.createElementNS(
+        "http://www.w3.org/1999/xhtml",
+        "div"
+      );
+      row.className = "kiwi-player-row";
+      if (this.#current?.browser === browser) {
+        row.classList.add("active");
+      }
+      const icon = document.createElementNS("http://www.w3.org/1999/xhtml", "img");
+      icon.src = browser.mIconURL || `page-icon:${browser.currentURI?.spec}`;
+      const label = document.createElementNS(
+        "http://www.w3.org/1999/xhtml",
+        "span"
+      );
+      label.className = "kiwi-player-row-label";
+      label.textContent = tab.label;
+      const state = document.createElementNS(
+        "http://www.w3.org/1999/xhtml",
+        "span"
+      );
+      state.className = "kiwi-player-row-state";
+      const playing = browser.browsingContext?.mediaController?.isPlaying;
+      state.innerHTML = `<svg viewBox="0 0 24 24" width="14" height="14"><path d="${
+        playing ? ICONS.pause : ICONS.play
+      }"/></svg>`;
+      row.append(icon, label, state);
+      row.addEventListener("click", () => {
+        const controller = browser.browsingContext?.mediaController;
+        if (controller?.isActive) {
+          this.#attach(browser, controller);
+          this.#widget?.removeAttribute("hidden");
+        }
+        this._listEl.setAttribute("hidden", "true");
+      });
+      list.appendChild(row);
     }
   }
 
@@ -301,6 +415,13 @@ window.gKiwiMediaPlayer = new (class KiwiMediaPlayer extends nsZenDOMOperatedFea
     this.#updatePosition();
     this.#updateButtons();
     this.#updateMuteIcon();
+    if (this._volEl) {
+      this._volEl.value = Math.round(this.#volumeFor(browser) * 100);
+      const stored = this.#volumes.get(browser);
+      if (stored != null) {
+        this.#sendVolume(browser, stored);
+      }
+    }
   }
 
   #detach() {
@@ -363,10 +484,14 @@ window.gKiwiMediaPlayer = new (class KiwiMediaPlayer extends nsZenDOMOperatedFea
     const artist = mk("div", "kiwi-player-artist");
     texts.append(title, artist);
 
+    const list = mk("div", "kiwi-player-list");
+    list.setAttribute("hidden", "true");
+
     const header = mk("div", "kiwi-player-header");
+    const listBtn = button("list", "list");
     const tabBtn = button("tab", "tab");
     const closeBtn = button("close", "close");
-    header.append(art, texts, tabBtn, closeBtn);
+    header.append(art, texts, listBtn, tabBtn, closeBtn);
 
     const seekRow = mk("div", "kiwi-player-seekrow");
     const cur = mk("span", "kiwi-player-time kiwi-player-cur");
@@ -383,14 +508,21 @@ window.gKiwiMediaPlayer = new (class KiwiMediaPlayer extends nsZenDOMOperatedFea
     const playBtn = button("playpause", "play");
     const nextBtn = button("next", "next");
     const muteBtn = button("mute", "unmuted");
-    controls.append(prevBtn, playBtn, nextBtn, muteBtn);
+    const vol = mk("input", "kiwi-player-vol");
+    vol.type = "range";
+    vol.min = 0;
+    vol.max = 100;
+    vol.value = 100;
+    const volGroup = mk("div", "kiwi-player-volgroup");
+    volGroup.append(muteBtn, vol);
+    controls.append(prevBtn, playBtn, nextBtn, volGroup);
 
-    widget.append(header, seekRow, controls);
+    widget.append(header, list, seekRow, controls);
     host.appendChild(widget);
     this.#widget = widget;
     this.#applyCorner();
 
-    const els = { art, title, artist, cur, seek, dur, prevBtn, playBtn, nextBtn, muteBtn, tabBtn, closeBtn };
+    const els = { art, title, artist, cur, seek, dur, prevBtn, playBtn, nextBtn, muteBtn, vol, list, listBtn, tabBtn, closeBtn };
     for (const [key, el] of Object.entries(els)) {
       this[`_${key}El`] = el;
     }
@@ -400,6 +532,7 @@ window.gKiwiMediaPlayer = new (class KiwiMediaPlayer extends nsZenDOMOperatedFea
       ["playpause", this._playBtnEl, "kiwi-player-playpause"],
       ["next", this._nextBtnEl, "kiwi-player-next"],
       ["mute", this._muteBtnEl, "kiwi-player-mute"],
+      ["list", this._listBtnEl, "kiwi-player-list"],
       ["tab", this._tabBtnEl, "kiwi-player-focus-tab"],
       ["close", this._closeBtnEl, "kiwi-player-close"],
     ]) {
@@ -453,6 +586,14 @@ window.gKiwiMediaPlayer = new (class KiwiMediaPlayer extends nsZenDOMOperatedFea
         this.#updateMuteIcon();
       }
     });
+    vol.addEventListener("input", () => {
+      const { browser } = this.#current ?? {};
+      if (!browser) {
+        return;
+      }
+      this.#applyVolume(browser, vol.value / 100);
+    });
+    listBtn.addEventListener("click", () => this.#toggleList());
     tabBtn.addEventListener("click", () => {
       const { browser, controller } = this.#current ?? {};
       const tab = browser && window.gBrowser.getTabForBrowser(browser);
@@ -575,9 +716,15 @@ window.gKiwiMediaPlayer = new (class KiwiMediaPlayer extends nsZenDOMOperatedFea
     }
     const muted = browser?.audioMuted;
     this.#widget.classList.toggle("muted", !!muted);
-    this._muteBtnEl.querySelector("path").setAttribute(
-      "d",
-      muted ? ICONS.muted : ICONS.unmuted
-    );
+    const vol = this.#volumeFor(browser);
+    const icon = muted
+      ? ICONS.muted
+      : vol < 0.5
+        ? ICONS.volLow
+        : ICONS.unmuted;
+    this._muteBtnEl.querySelector("path").setAttribute("d", icon);
+    if (this._listEl && !this._listEl.hidden) {
+      this.#rebuildList();
+    }
   }
 })();

@@ -74,6 +74,18 @@ let JSWINDOWACTORS = {
     safeForUntrustedWebProcess: true,
     enablePreference: "zen.view.drag-window-from-content",
   },
+  KiwiVolume: {
+    parent: {
+      esModuleURI: "resource:///actors/KiwiVolumeParent.sys.mjs",
+    },
+    child: {
+      esModuleURI: "resource:///actors/KiwiVolumeChild.sys.mjs",
+    },
+    messageManagerGroups: ["browsers"],
+    remoteTypes: ["web", "file"],
+    safeForUntrustedWebProcess: true,
+    enablePreference: "kiwi.player.enabled",
+  },
 };
 
 if (!Services.appinfo.inSafeMode) {
