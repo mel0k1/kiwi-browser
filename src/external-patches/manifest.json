@@ -4,11 +4,6 @@
 [
   {
     "type": "phabricator",
-    "id": "D299584",
-    "name": "Native MacOS popovers fix"
-  },
-  {
-    "type": "phabricator",
     "id": "D323933",
     "name": "Issue 15123"
   },
