@@ -8,7 +8,7 @@
   value: true
 - name: kiwi.tabs.double-click-newtab
   value: true
-- name: browser.newtabpage.activityStream.showSponsored
+- name: browser.newtabpage.activity-stream.showSponsored
   value: false
-- name: browser.newtabpage.activityStream.showSponsoredTopSites
+- name: browser.newtabpage.activity-stream.showSponsoredTopSites
   value: false
