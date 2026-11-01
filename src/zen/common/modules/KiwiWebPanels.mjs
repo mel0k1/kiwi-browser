@@ -24,6 +24,20 @@ const ICONS = {
 
 const HTML_NS = "http://www.w3.org/1999/xhtml";
 const XUL_NS = "http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul";
+const SVG_NS = "http://www.w3.org/2000/svg";
+
+// innerHTML with SVG markup creates no elements inside a XUL document,
+// so icons must be built through createElementNS.
+function svgIcon(name) {
+  const svg = document.createElementNS(SVG_NS, "svg");
+  svg.setAttribute("viewBox", "0 0 24 24");
+  svg.setAttribute("width", 14);
+  svg.setAttribute("height", 14);
+  const path = document.createElementNS(SVG_NS, "path");
+  path.setAttribute("d", ICONS[name]);
+  svg.appendChild(path);
+  return svg;
+}
 
 function kiwiNormalizeUrl(input) {
   const raw = String(input || "").trim();
@@ -168,7 +182,7 @@ window.gKiwiWebPanels = new (class KiwiWebPanels extends nsZenDOMOperatedFeature
     };
     const button = (name, icon) => {
       const btn = mk("button", `kiwi-player-btn kiwi-webpanels-btn kiwi-webpanels-${name}`);
-      btn.innerHTML = `<svg viewBox="0 0 24 24" width="14" height="14"><path d="${ICONS[icon]}"/></svg>`;
+      btn.appendChild(svgIcon(icon));
       return btn;
     };
 

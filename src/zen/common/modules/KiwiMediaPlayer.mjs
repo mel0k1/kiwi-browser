@@ -9,6 +9,24 @@ import {
 const kEnabledPref = "kiwi.player.enabled";
 const kCornerPref = "kiwi.player.corner";
 const kZenMediaBarPref = "zen.mediacontrols.enabled";
+const SVG_NS = "http://www.w3.org/2000/svg";
+
+// innerHTML with SVG markup creates no elements inside a XUL document,
+// so icons must be built through createElementNS.
+function svgIcon(name, size) {
+  const svg = document.createElementNS(SVG_NS, "svg");
+  svg.setAttribute("viewBox", "0 0 24 24");
+  svg.setAttribute("width", size);
+  svg.setAttribute("height", size);
+  const path = document.createElementNS(SVG_NS, "path");
+  path.setAttribute("d", ICONS[name]);
+  svg.appendChild(path);
+  return svg;
+}
+
+function iconPath(btn) {
+  return btn && btn.getElementsByTagNameNS(SVG_NS, "path")[0];
+}
 
 const ICONS = {
   play: "M8 5v14l11-7z",
@@ -75,6 +93,7 @@ window.gKiwiMediaPlayer = new (class KiwiMediaPlayer extends nsZenDOMOperatedFea
   }
 
   init() {
+    window.MozXULElement.insertFTLIfNeeded("browser/kiwi-player.ftl");
     this.#syncSidebarButton();
     window.addEventListener("TabAttrModified", event => {
       const { changed } = event.detail;
@@ -92,6 +111,22 @@ window.gKiwiMediaPlayer = new (class KiwiMediaPlayer extends nsZenDOMOperatedFea
     window.addEventListener("TabClose", this.#onTabGone.bind(this));
     window.addEventListener("TabBrowserDiscarded", this.#onTabGone.bind(this));
     if (!Services.prefs.getBoolPref(kEnabledPref, true)) {
+      return;
+    }
+    if (!window.gBrowser) {
+      const obs = subject => {
+        if (subject !== window) {
+          return;
+        }
+        Services.obs.removeObserver(obs, "browser-delayed-startup-finished");
+        for (const tab of window.gBrowser.tabs) {
+          if (tab.hasAttribute("soundplaying")) {
+            this.#evaluate(tab.linkedBrowser);
+            break;
+          }
+        }
+      };
+      Services.obs.addObserver(obs, "browser-delayed-startup-finished");
       return;
     }
     for (const tab of window.gBrowser.tabs) {
@@ -181,7 +216,7 @@ window.gKiwiMediaPlayer = new (class KiwiMediaPlayer extends nsZenDOMOperatedFea
     this._titleEl.textContent = "";
     document.l10n.setAttributes(this._titleEl, "kiwi-player-empty");
     this.#widget.classList.remove("playing");
-    this._playBtnEl.querySelector("path").setAttribute("d", ICONS.play);
+    iconPath(this._playBtnEl).setAttribute("d", ICONS.play);
     this._curEl.textContent = "0:00";
     this._durEl.textContent = "0:00";
     this._seekEl.value = 0;
@@ -303,9 +338,7 @@ window.gKiwiMediaPlayer = new (class KiwiMediaPlayer extends nsZenDOMOperatedFea
       );
       state.className = "kiwi-player-row-state";
       const playing = browser.browsingContext?.mediaController?.isPlaying;
-      state.innerHTML = `<svg viewBox="0 0 24 24" width="14" height="14"><path d="${
-        playing ? ICONS.pause : ICONS.play
-      }"/></svg>`;
+      state.appendChild(svgIcon(playing ? "pause" : "play", 14));
       row.append(icon, label, state);
       row.addEventListener("click", () => {
         const controller = browser.browsingContext?.mediaController;
@@ -464,9 +497,9 @@ window.gKiwiMediaPlayer = new (class KiwiMediaPlayer extends nsZenDOMOperatedFea
       }
       return el;
     };
-    const button = (name, icon) => {
+    const button = (name, iconName) => {
       const btn = mk("button", `kiwi-player-btn kiwi-player-${name}`);
-      btn.innerHTML = `<svg viewBox="0 0 24 24" width="16" height="16"><path d="${ICONS[icon]}"/></svg>`;
+      btn.appendChild(svgIcon(iconName, 16));
       return btn;
     };
 
@@ -642,7 +675,7 @@ window.gKiwiMediaPlayer = new (class KiwiMediaPlayer extends nsZenDOMOperatedFea
       return;
     }
     this.#widget.classList.toggle("playing", controller.isPlaying);
-    this._playBtnEl.querySelector("path").setAttribute(
+    iconPath(this._playBtnEl).setAttribute(
       "d",
       controller.isPlaying ? ICONS.pause : ICONS.play
     );
@@ -722,7 +755,7 @@ window.gKiwiMediaPlayer = new (class KiwiMediaPlayer extends nsZenDOMOperatedFea
       : vol < 0.5
         ? ICONS.volLow
         : ICONS.unmuted;
-    this._muteBtnEl.querySelector("path").setAttribute("d", icon);
+    iconPath(this._muteBtnEl).setAttribute("d", icon);
     if (this._listEl && !this._listEl.hidden) {
       this.#rebuildList();
     }
