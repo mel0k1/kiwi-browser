@@ -1,0 +1,20 @@
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
+# Memory tuning preferences
+
+- name: dom.ipc.processPrelaunch.enabled
+  value: false
+
+- name: browser.tabs.unloadOnLowMemory
+  value: true
+
+- name: browser.low_commit_space_threshold_percent
+  value: 10
+
+- name: media.memory_caches_combined_limit_kb
+  value: 262144
+
+- name: browser.sessionstore.max_tabs_undo
+  value: 5
