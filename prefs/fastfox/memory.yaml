@@ -16,5 +16,20 @@
 - name: media.memory_caches_combined_limit_kb
   value: 262144
 
+- name: media.memory_caches_combined_limit_pc_sysmem
+  value: 3
+
+- name: image.mem.surfacecache.size_factor
+  value: 8
+
+- name: browser.cache.memory.max_entry_size
+  value: 4096
+
 - name: browser.sessionstore.max_tabs_undo
   value: 5
+
+- name: browser.sessionstore.dom_form_limit
+  value: 262144
+
+- name: browser.sessionstore.dom_form_max_limit
+  value: 1048576
