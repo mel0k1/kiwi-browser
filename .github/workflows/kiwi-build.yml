@@ -111,7 +111,7 @@ jobs:
   build-windows:
     permissions:
       contents: read
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 350
     env:
       CARGO_TERM_COLOR: always
