@@ -36,6 +36,5 @@
       ".*\\.json"
     ],
     "licenseType": "MPL-2.0"
-  },
-  "updateHostname": "updates.kiwi-browser.app"
+  }
 }
