@@ -33,3 +33,12 @@
 
 - name: browser.sessionstore.dom_form_max_limit
   value: 1048576
+
+- name: dom.ipc.processCount
+  value: 5
+
+- name: browser.sessionhistory.max_total_viewers
+  value: 4
+
+- name: browser.cache.memory.capacity
+  value: 32768
